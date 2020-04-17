@@ -6,29 +6,37 @@ class MaritalDetails extends StatefulWidget {
   final String age;
   final String gender;
 
-  const MaritalDetails({Key key, this.name, this.age, this.gender}) : super(key: key);
+  const MaritalDetails({Key key, this.name, this.age, this.gender})
+      : super(key: key);
+
   @override
   _MaritalDetailsState createState() => _MaritalDetailsState();
 }
 
 class _MaritalDetailsState extends State<MaritalDetails> {
   String marital = 'Divorced';
-  List<String> maritals=['Divorced','Live-in','Married','Separated','Single'];
+  List<String> maritals = [
+    'Divorced',
+    'Live-in',
+    'Married',
+    'Separated',
+    'Single'
+  ];
 
-  List<Widget> maritalRadioList(){
+  List<Widget> maritalRadioList() {
     List<Widget> widgets = [];
-    for(int i=0;i<maritals.length;i++){
+    for (int i = 0; i < maritals.length; i++) {
       widgets.add(
         RadioListTile(
           value: i,
           groupValue: maritals.indexOf(marital),
           title: Text(maritals[i]),
-          onChanged: (val){
+          onChanged: (val) {
             setState(() {
-              marital=maritals[val];
+              marital = maritals[val];
             });
           },
-          selected: marital==maritals[i],
+          selected: marital == maritals[i],
         ),
       );
     }
@@ -40,7 +48,6 @@ class _MaritalDetailsState extends State<MaritalDetails> {
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.pink[600]),
-
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -64,7 +71,7 @@ class _MaritalDetailsState extends State<MaritalDetails> {
                   padding: const EdgeInsets.all(20.0),
                   child: Container(
                     decoration: BoxDecoration(
-                      border:Border.all(color: Colors.purple,width: 2),
+                      border: Border.all(color: Colors.purple, width: 2),
                       borderRadius: BorderRadius.circular(40),
                     ),
                     child: Column(
@@ -73,8 +80,7 @@ class _MaritalDetailsState extends State<MaritalDetails> {
                       mainAxisSize: MainAxisSize.max,
                       children: maritalRadioList(),
                     ),
-                  )
-              ),
+                  )),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
@@ -82,7 +88,15 @@ class _MaritalDetailsState extends State<MaritalDetails> {
                     padding: EdgeInsets.all(20),
                     child: FlatButton(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>SexOrientationDetails(name: widget.name,age: widget.age,gender: widget.gender,marital: marital,)));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SexOrientationDetails(
+                                      name: widget.name,
+                                      age: widget.age,
+                                      gender: widget.gender,
+                                      marital: marital,
+                                    )));
                       },
                       child: Text('Next'),
                       splashColor: Colors.transparent,
@@ -103,7 +117,3 @@ class _MaritalDetailsState extends State<MaritalDetails> {
     );
   }
 }
-
-
-
-

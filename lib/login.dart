@@ -180,10 +180,10 @@ class _LoginState extends State<Login> {
                           Fluttertoast.showToast(msg: 'Wrong');
                         } else {
                           Fluttertoast.showToast(msg: 'Success');
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) => Redirect()));
-
-
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Redirect()));
                         }
 
                         //login/todo
@@ -239,33 +239,32 @@ class _LoginState extends State<Login> {
                   children: <Widget>[
                     Center(
                       child: IconButton(
-                        onPressed: () async {
-                          dynamic result = await _auth
-                              .signInWithGoogle();
-                          if (result == null) {
-                            Fluttertoast.showToast(msg: 'Wrong');
-                          } else {
-                            Fluttertoast.showToast(msg: 'Success');
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) => Home()));
-                          }
+                          onPressed: () async {
+                            dynamic result = await _auth.signInWithGoogle();
+                            if (result == null) {
+                              Fluttertoast.showToast(msg: 'Wrong');
+                            } else {
+                              Fluttertoast.showToast(msg: 'Success');
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Home()));
+                            }
 
-                          //login/todo
-                        },
-                        iconSize: 25.0,
-                        splashColor: Colors.transparent,
+                            //login/todo
+                          },
+                          iconSize: 25.0,
+                          splashColor: Colors.transparent,
                           color: Colors.pink[600],
-                        icon: FaIcon(FontAwesomeIcons.google)
-                      ),
+                          icon: FaIcon(FontAwesomeIcons.google)),
                     ),
                     Center(
                       child: IconButton(
-                        onPressed: () {},
-                        iconSize: 25.0,
-                        splashColor: Colors.transparent,
+                          onPressed: () {},
+                          iconSize: 25.0,
+                          splashColor: Colors.transparent,
                           color: Colors.pink[600],
-                        icon: FaIcon(FontAwesomeIcons.facebook)
-                      ),
+                          icon: FaIcon(FontAwesomeIcons.facebook)),
                     ),
                   ],
                 ),

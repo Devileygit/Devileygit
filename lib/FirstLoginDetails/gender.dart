@@ -4,29 +4,31 @@ import 'package:flutter/material.dart';
 class GenderDetails extends StatefulWidget {
   final String name;
   final String age;
+
   const GenderDetails({Key key, this.name, this.age}) : super(key: key);
+
   @override
   _GenderDetailsState createState() => _GenderDetailsState();
 }
 
 class _GenderDetailsState extends State<GenderDetails> {
   String gender = 'Female';
-  List<String> genders=['Female','Male','Others'];
+  List<String> genders = ['Female', 'Male', 'Others'];
 
-  List<Widget> genderRadioList(){
+  List<Widget> genderRadioList() {
     List<Widget> widgets = [];
-    for(int i=0;i<genders.length;i++){
+    for (int i = 0; i < genders.length; i++) {
       widgets.add(
         RadioListTile(
           value: i,
           groupValue: genders.indexOf(gender),
           title: Text(genders[i]),
-          onChanged: (val){
+          onChanged: (val) {
             setState(() {
-              gender=genders[val];
+              gender = genders[val];
             });
           },
-          selected: gender==genders[i],
+          selected: gender == genders[i],
         ),
       );
     }
@@ -38,7 +40,6 @@ class _GenderDetailsState extends State<GenderDetails> {
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.pink[600]),
-
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -62,17 +63,16 @@ class _GenderDetailsState extends State<GenderDetails> {
                   padding: const EdgeInsets.all(20.0),
                   child: Container(
                     decoration: BoxDecoration(
-                      border:Border.all(color: Colors.purple,width: 2),
+                      border: Border.all(color: Colors.purple, width: 2),
                       borderRadius: BorderRadius.circular(40),
                     ),
                     child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        mainAxisSize: MainAxisSize.max,
-                        children: genderRadioList(),
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisSize: MainAxisSize.max,
+                      children: genderRadioList(),
                     ),
-                  )
-              ),
+                  )),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
@@ -80,7 +80,14 @@ class _GenderDetailsState extends State<GenderDetails> {
                     padding: EdgeInsets.all(20),
                     child: FlatButton(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>MaritalDetails(name: widget.name,age: widget.age,gender: gender,)));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MaritalDetails(
+                                      name: widget.name,
+                                      age: widget.age,
+                                      gender: gender,
+                                    )));
                       },
                       child: Text('Next'),
                       splashColor: Colors.transparent,
@@ -101,7 +108,3 @@ class _GenderDetailsState extends State<GenderDetails> {
     );
   }
 }
-
-
-
-

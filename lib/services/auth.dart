@@ -9,7 +9,6 @@ class AuthService {
 
   Stream<FirebaseUser> get user {
     return _auth.onAuthStateChanged;
-
   }
 
   //register with email and pass
@@ -29,7 +28,6 @@ class AuthService {
   //sign in with email and pass
 
   Future signInWithEmailIdAndPassword(String email, String password) async {
-
     try {
       AuthResult result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
@@ -43,14 +41,14 @@ class AuthService {
   //todo sign in with google
 
   Future signInWithGoogle() async {
-
     try {
       GoogleSignInAccount googleUser = await _googleSignIn.signIn();
       GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
-      AuthCredential _authCredential = GoogleAuthProvider.getCredential(idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
+      AuthCredential _authCredential = GoogleAuthProvider.getCredential(
+          idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
 
-      AuthResult result =  await _auth.signInWithCredential(_authCredential);
+      AuthResult result = await _auth.signInWithCredential(_authCredential);
 
       FirebaseUser user = result.user;
 
@@ -58,10 +56,7 @@ class AuthService {
     } catch (e) {
       return null;
     }
-
-
   }
-
 
   //todo sign in with fb
   // sign out With Email Pass
@@ -78,16 +73,12 @@ class AuthService {
 
   Future googleSignOut() async {
     try {
-
-        await _googleSignIn.disconnect();
-        await _googleSignIn.signOut();
-        return await _auth.signOut();
-
-
+      await _googleSignIn.disconnect();
+      await _googleSignIn.signOut();
+      return await _auth.signOut();
     } on Exception catch (e) {
       print(e.toString());
       return null;
     }
   }
-
 }
