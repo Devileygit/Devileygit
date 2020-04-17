@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "926646637492",
+    "firebase_url": "https://devileyproduction.firebaseio.com",
+    "project_id": "devileyproduction",
+    "storage_bucket": "devileyproduction.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:926646637492:android:c8b7e521fd5a3b03a858e1",
+        "android_client_info": {
+          "package_name": "com.deviley.deviley_production"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "926646637492-u6ibbligt14r1th8qonp3p0ktqb48dfa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.deviley.deviley_production",
+            "certificate_hash": "269eea5ba6ffc975aa6bffe1db11f393a0a73b21"
+          }
+        },
+        {
+          "client_id": "926646637492-1cc8rv7mijspeu90mbjlajjmqj2e7ehq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCx7NfsBepa_wrC1IEPRulPSQURvs5bnVk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "926646637492-1cc8rv7mijspeu90mbjlajjmqj2e7ehq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
