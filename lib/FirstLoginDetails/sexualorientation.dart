@@ -1,3 +1,4 @@
+import 'package:deviley_production/FirstLoginDetails/addiction.dart';
 import 'package:flutter/material.dart';
 
 class SexOrientationDetails extends StatefulWidget {
@@ -82,7 +83,7 @@ class _SexOrientationDetailsState extends State<SexOrientationDetails> {
                     padding: EdgeInsets.all(20),
                     child: FlatButton(
                       onPressed: () {
-
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>AddictionDetails(name: widget.name,gender: widget.gender,age: widget.age,marital: widget.marital,orientation: orientation,)));
                       },
                       child: Text('Next'),
                       splashColor: Colors.transparent,
