@@ -1,3 +1,4 @@
+import 'package:deviley_production/FirstLoginDetails/location.dart';
 import 'package:flutter/material.dart';
 
 class AddictionDetails extends StatefulWidget {
@@ -24,7 +25,7 @@ class _AddictionDetailsState extends State<AddictionDetails> {
   List<String> addictionList = ["No Addiction!!"];
 
   Map<String, bool> addictions = {
-    "Smokig": false,
+    "Smoking": false,
     "Drinking": false,
     "Soft Drugs (Like Marijuana)": false,
     "Hard Drugs (Like Cocaine)": false
@@ -97,6 +98,19 @@ class _AddictionDetailsState extends State<AddictionDetails> {
                     child: FlatButton(
                       onPressed: () {
                         getItems();
+                        print(addictionList);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LocationDetails(
+                                      name: widget.name,
+                                      age: widget.age,
+                                      gender: widget.gender,
+                                      marital: widget.marital,
+                                      orientation: widget.orientation,
+                                      addictionList: addictionList,
+                                    )));
+                        addictionList.clear();
                         print(addictionList);
                       },
                       child: Text('Next'),
