@@ -67,7 +67,12 @@ class _NameDetailsState extends State<NameDetails> {
                     padding: EdgeInsets.all(20),
                     child: FlatButton(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>AgeDetails(name: name,)));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AgeDetails(
+                                      name: name,
+                                    )));
                       },
                       child: Text('Next'),
                       splashColor: Colors.transparent,

@@ -11,12 +11,12 @@ class LocationAutoDetails extends StatefulWidget {
 
   const LocationAutoDetails(
       {Key key,
-        this.name,
-        this.age,
-        this.gender,
-        this.marital,
-        this.orientation,
-        this.addictionList})
+      this.name,
+      this.age,
+      this.gender,
+      this.marital,
+      this.orientation,
+      this.addictionList})
       : super(key: key);
 
   @override
@@ -24,37 +24,34 @@ class LocationAutoDetails extends StatefulWidget {
 }
 
 class _LocationAutoDetailsState extends State<LocationAutoDetails> {
-
   Geolocator geolocator = Geolocator();
   List<Placemark> fetchedLocation;
   Position fetchedLatitudeLongitude;
 
-
-
-  Future<List> _getLocationName() async{
+  Future<List> _getLocationName() async {
     var currentLocation;
     List<Placemark> placeMark;
 
     try {
-      currentLocation=await geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
-      placeMark=await Geolocator().placemarkFromCoordinates(currentLocation.latitude,currentLocation.longitude);
-    }  catch (e) {
-      currentLocation=null;
-      placeMark=null;
+      currentLocation = await geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.best);
+      placeMark = await Geolocator().placemarkFromCoordinates(
+          currentLocation.latitude, currentLocation.longitude);
+    } catch (e) {
+      currentLocation = null;
+      placeMark = null;
     }
-    return [placeMark,currentLocation];
+    return [placeMark, currentLocation];
   }
-
-
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _getLocationName().then((name){
+    _getLocationName().then((name) {
       setState(() {
-        fetchedLocation=name[0];
-        fetchedLatitudeLongitude=name[1];
+        fetchedLocation = name[0];
+        fetchedLatitudeLongitude = name[1];
       });
     });
   }
@@ -84,8 +81,8 @@ class _LocationAutoDetailsState extends State<LocationAutoDetails> {
                 ),
               ),
               Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Container(
+                padding: const EdgeInsets.all(20.0),
+                child: Container(
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.purple, width: 2),
                       borderRadius: BorderRadius.circular(40),
@@ -93,10 +90,19 @@ class _LocationAutoDetailsState extends State<LocationAutoDetails> {
                     child: Padding(
                       padding: EdgeInsets.all(20),
                       child: Center(
-                        child: fetchedLocation==null?Text('Fetching Location',style: TextStyle(fontSize: 16),):Text(fetchedLocation[0].locality+", "+fetchedLocation[0].country, style: TextStyle(fontSize: 16),),
+                        child: fetchedLocation == null
+                            ? Text(
+                                'Fetching Location',
+                                style: TextStyle(fontSize: 16),
+                              )
+                            : Text(
+                                fetchedLocation[0].locality +
+                                    ", " +
+                                    fetchedLocation[0].country,
+                                style: TextStyle(fontSize: 16),
+                              ),
                       ),
-                    )
-                  ),
+                    )),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -104,9 +110,7 @@ class _LocationAutoDetailsState extends State<LocationAutoDetails> {
                   Padding(
                     padding: EdgeInsets.all(20),
                     child: FlatButton(
-                      onPressed: () {
-
-                      },
+                      onPressed: () {},
                       child: Text('Next'),
                       splashColor: Colors.transparent,
                       color: Colors.pink[600],
@@ -125,7 +129,4 @@ class _LocationAutoDetailsState extends State<LocationAutoDetails> {
       ),
     );
   }
-
 }
-
-

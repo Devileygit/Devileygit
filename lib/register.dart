@@ -35,7 +35,10 @@ class _RegisterState extends State<Register> {
                             gradient: LinearGradient(
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
-                              colors: [Colors.deepPurple[600], Colors.deepPurpleAccent],
+                              colors: [
+                                Colors.deepPurple[600],
+                                Colors.deepPurpleAccent
+                              ],
                             ),
                           ),
                         ),

@@ -26,8 +26,9 @@ class _ProfileState extends State<Profile> {
                 dynamic result = await _auth.signOut();
                 if (result == null) {
                   Fluttertoast.showToast(msg: 'Success');
-                  Navigator.of(context)
-                      .pushAndRemoveUntil(MaterialPageRoute(builder: (context) => MyApp()), (Route<dynamic> route) => false);
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => MyApp()),
+                      (Route<dynamic> route) => false);
                 } else {
                   Fluttertoast.showToast(msg: 'Error');
                 }
@@ -51,8 +52,9 @@ class _ProfileState extends State<Profile> {
                 print(result);
                 if (result == null) {
                   Fluttertoast.showToast(msg: 'Success');
-                  Navigator.of(context)
-                      .pushAndRemoveUntil(MaterialPageRoute(builder: (context) => MyApp()), (Route<dynamic> route) => false);
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => MyApp()),
+                      (Route<dynamic> route) => false);
                 } else {
                   Fluttertoast.showToast(msg: 'error');
                 }

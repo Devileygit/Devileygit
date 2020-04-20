@@ -20,7 +20,8 @@ class _MaritalDetailsState extends State<MaritalDetails> {
     'Live-in',
     'Married',
     'Separated',
-    'Single'
+    'Single',
+    'Widowed'
   ];
 
   List<Widget> maritalRadioList() {
@@ -62,7 +63,7 @@ class _MaritalDetailsState extends State<MaritalDetails> {
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
                 child: Center(
                   child: Text(
-                    'My Marital Status',
+                    'My Relationship Status',
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                 ),

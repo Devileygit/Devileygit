@@ -7,21 +7,18 @@ import 'package:provider/provider.dart';
 import 'home.dart';
 
 class Redirect extends StatelessWidget {
-
-
-  Future queryCheck(FirebaseUser user) async{
-    QuerySnapshot query = await Firestore.instance.collection('users').where('id', isEqualTo: user.uid).getDocuments();
+  Future queryCheck(FirebaseUser user) async {
+    QuerySnapshot query = await Firestore.instance
+        .collection('users')
+        .where('id', isEqualTo: user.uid)
+        .getDocuments();
     List<DocumentSnapshot> documents = query.documents;
-    if(documents.length==0)
-      {
-        return 1;
-      }
-    else{
+    if (documents.length == 0) {
+      return 1;
+    } else {
       return null;
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -30,26 +27,19 @@ class Redirect extends StatelessWidget {
     return Scaffold(
       body: FutureBuilder<dynamic>(
           future: queryCheck(user),
-          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot ){
-            if(snapshot.connectionState==ConnectionState.done) {
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.data == null) {
                 return Home();
-              }
-              else {
+              } else {
                 return NameDetails();
               }
-            }
-            else{
+            } else {
               return Container(
-                child: Center(
-                  child: CircularProgressIndicator()
-                ),
+                child: Center(child: CircularProgressIndicator()),
               );
             }
-          }
-      ),
+          }),
     );
-
   }
 }
-
