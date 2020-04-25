@@ -22,7 +22,7 @@ class AddictionDetails extends StatefulWidget {
 }
 
 class _AddictionDetailsState extends State<AddictionDetails> {
-  List<String> addictionList = ["No Addiction!!"];
+  List<String> addictionList;
 
   Map<String, bool> addictions = {
     "Smoking": false,
@@ -32,14 +32,22 @@ class _AddictionDetailsState extends State<AddictionDetails> {
   };
 
   void getItems() {
+    addictionList.clear();
     addictions.forEach((key, value) {
       if (value == true) {
         addictionList.add(key);
       }
     });
-    if (addictionList.length > 1) {
-      addictionList.removeAt(0);
+    if (addictionList.length == 0) {
+      addictionList=["No Addiction!!"];
     }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    addictionList = ["No Addiction!!"];
   }
 
   @override
@@ -98,7 +106,6 @@ class _AddictionDetailsState extends State<AddictionDetails> {
                     child: FlatButton(
                       onPressed: () {
                         getItems();
-                        print(addictionList);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -110,8 +117,6 @@ class _AddictionDetailsState extends State<AddictionDetails> {
                                       orientation: widget.orientation,
                                       addictionList: addictionList,
                                     )));
-                        addictionList.clear();
-                        print(addictionList);
                       },
                       child: Text('Next'),
                       splashColor: Colors.transparent,

@@ -248,7 +248,7 @@ class _LoginState extends State<Login> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Home()));
+                                      builder: (context) => Redirect()));
                             }
 
                             //login/todo

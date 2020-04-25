@@ -1,3 +1,4 @@
+import 'package:deviley_production/FirstLoginDetails/location.dart';
 import 'package:deviley_production/login.dart';
 import 'package:deviley_production/redirect.dart';
 import 'package:deviley_production/services/auth.dart';
@@ -23,6 +24,7 @@ class RunApp extends StatelessWidget {
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
             fontFamily: 'BalooPaaji',
+            buttonTheme: ButtonThemeData(minWidth: 5),
             textTheme: TextTheme(
                 display1: TextStyle(color: Colors.grey[800]),
                 display2: TextStyle(color: Colors.grey[800]),

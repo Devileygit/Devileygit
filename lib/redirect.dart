@@ -29,9 +29,12 @@ class Redirect extends StatelessWidget {
           future: queryCheck(user),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
+              print(user.email);
               if (snapshot.data == null) {
+                print(snapshot.data);
                 return Home();
               } else {
+                print(snapshot.data);
                 return NameDetails();
               }
             } else {

@@ -34,10 +34,13 @@ class _NameDetailsState extends State<NameDetails> {
                   keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value == null) {
-                      return 'Please Enter a name';
+                      return 'Please enter a name';
                     } else if (value.length < 3) {
-                      return 'Your name is realy short!';
-                    } else {
+                      return 'Your name is really short!';
+                    } else if(value.length>20){
+                      return 'Your name is too long!';
+                    }
+                    else {
                       return null;
                     }
                   },

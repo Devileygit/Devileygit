@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 class PeerProfile extends StatefulWidget {
+  final snapShot;
+
+  const PeerProfile({Key key, this.snapShot}) : super(key: key);
+
   @override
   _PeerProfileState createState() => _PeerProfileState();
 }
 
 class _PeerProfileState extends State<PeerProfile> {
-  var i = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,21 +31,31 @@ class _PeerProfileState extends State<PeerProfile> {
               )
             ],
             flexibleSpace: FlexibleSpaceBar(
-              title: Container(
+              title: Text('Chamki Mamoni, 30'),
+              background: Container(
+                alignment: Alignment.bottomCenter,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(15),
-                      bottomRight: Radius.circular(15)),
-                  gradient: LinearGradient(
-                      colors: [Colors.black, Colors.transparent],
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter),
+                  image: DecorationImage(
+                    image: NetworkImage(widget.snapShot['profilePhoto']),
+                    fit: BoxFit.cover,
+                    alignment: Alignment.center
+                  )
                 ),
-                child: Text('Chamki Mamoni'),
-              ),
-              background: Image.asset(
-                'images/b4.jpeg',
-                fit: BoxFit.cover,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    height: 100,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          colors: [
+                            Colors.black,
+                            Colors.transparent
+                          ],
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter),
+                    ),
+                  ),
+                ),
               ),
               collapseMode: CollapseMode.parallax,
             ),
@@ -51,30 +63,30 @@ class _PeerProfileState extends State<PeerProfile> {
           SliverToBoxAdapter(
             child: Column(
               children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    IconButton(
-                      icon: Icon(Icons.favorite),
-                      onPressed: () {},
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(255, 255, 255, 0.2),
+                      borderRadius: BorderRadius.circular(15)
                     ),
-                    IconButton(
-                      icon: Icon(Icons.chat),
-                      onPressed: () {},
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        IconButton(
+                          icon: Icon(Icons.favorite,size: 40,),
+                          onPressed: () {},
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.chat,size: 40,),
+                          onPressed: () {},
+                        ),
+
+                      ],
                     ),
-                    IconButton(
-                      icon: Icon(Icons.card_giftcard),
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: EdgeInsets.all(8),
-                    child: Text('Photos'),
                   ),
                 ),
+
                 Padding(
                   padding: EdgeInsets.all(5),
                   //todo, album
@@ -121,7 +133,40 @@ class _PeerProfileState extends State<PeerProfile> {
               ],
             ),
           ),
-          SliverFillRemaining()
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: EdgeInsets.all(8),
+              child: Text('Photos'),
+            ),
+          ),
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child:Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                height: 50,
+                decoration: BoxDecoration(
+                    color: Color.fromRGBO(255, 255, 255, 0.2),
+                    borderRadius: BorderRadius.circular(15)
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.favorite,size: 40,),
+                      onPressed: () {},
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.chat,size: 40,),
+                      onPressed: () {},
+                    ),
+
+                  ],
+                ),
+              ),
+            ),
+          )
         ],
       ),
     ));

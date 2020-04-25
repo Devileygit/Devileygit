@@ -1,3 +1,4 @@
+import 'package:deviley_production/FirstLoginDetails/aboutme.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -109,16 +110,43 @@ class _LocationAutoDetailsState extends State<LocationAutoDetails> {
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.all(20),
-                    child: FlatButton(
-                      onPressed: () {},
-                      child: Text('Next'),
-                      splashColor: Colors.transparent,
-                      color: Colors.pink[600],
-                      highlightColor: Colors.pinkAccent,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40),
+                    child: Builder(
+                      builder:(context)=> FlatButton(
+                        onPressed: () {
+                          if(fetchedLocation!=null) {
+                            Navigator.pop(context, MaterialPageRoute(
+                                builder: (context) => LocationAutoDetails()));
+                            Navigator.push(context, MaterialPageRoute(
+                                builder: (context) =>
+                                    AboutDetails(name: widget.name,
+                                      age: widget.age,
+                                      gender: widget.gender,
+                                      marital: widget.marital,
+                                      orientation: widget.orientation,
+                                      addictionList: widget.addictionList,
+                                      cityName: fetchedLocation[0].locality,
+                                      countryName: fetchedLocation[0].country,
+                                      cityLatitude: fetchedLatitudeLongitude
+                                          .latitude,
+                                      cityLongitude: fetchedLatitudeLongitude
+                                          .longitude,)));
+                          }
+                          else{
+                            Scaffold.of(context).showSnackBar(SnackBar(
+                              content: Text('Location Couldn\'t fetched automatically.'),
+                              duration: Duration(seconds: 3),
+                            ));
+                          }
+                        },
+                        child: Text('Next'),
+                        splashColor: Colors.transparent,
+                        color: Colors.pink[600],
+                        highlightColor: Colors.pinkAccent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+                        padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
                       ),
-                      padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
                     ),
                   ),
                 ],

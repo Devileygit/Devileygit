@@ -13,11 +13,12 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  Key keyPageView=PageStorageKey('pageviewstore');
   PageController _pageController;
-
   PageController _pageController2;
   int _currentIndex = 0;
-  final List _children = [HomePage(), Chat(), Favourite(), Profile()];
+
+  List _children;
 
   @override
   void initState() {
@@ -25,6 +26,7 @@ class _HomeState extends State<Home> {
     super.initState();
     _pageController = PageController();
     _pageController2 = PageController();
+    _children=[HomePage(key: keyPageView,), Chat(), Favourite(), Profile()];
   }
 
   @override
@@ -39,6 +41,9 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavyBar(
+        itemCornerRadius: 40,
+        showElevation: false,
+        backgroundColor: Colors.pink[50],
         curve: Curves.linearToEaseOut,
         onItemSelected: (index) {
           setState(() {
@@ -49,27 +54,27 @@ class _HomeState extends State<Home> {
         items: [
           BottomNavyBarItem(
             title: Text('Home'),
-            icon: Icon(FontAwesomeIcons.home),
-            activeColor: Colors.pink[600],
-            inactiveColor: Colors.pink[300],
+            icon: Icon(FontAwesomeIcons.solidClone,size: 20,),
+            activeColor: Colors.deepPurple[600],
+            inactiveColor: Colors.pinkAccent,
           ),
           BottomNavyBarItem(
             title: Text('Chat'),
-            icon: Icon(FontAwesomeIcons.solidComments),
-            activeColor: Colors.pink[600],
-            inactiveColor: Colors.pink[300],
+            icon: Icon(Icons.message,size:25),
+            activeColor: Colors.deepPurple[600],
+            inactiveColor: Colors.pinkAccent,
           ),
           BottomNavyBarItem(
             title: Text('Favourite'),
-            icon: Icon(FontAwesomeIcons.solidHeart),
-            activeColor: Colors.pink[600],
-            inactiveColor: Colors.pink[300],
+            icon: Icon(FontAwesomeIcons.solidHeart,size: 20,),
+            activeColor: Colors.deepPurple[600],
+            inactiveColor: Colors.pinkAccent,
           ),
           BottomNavyBarItem(
             title: Text('Profile'),
-            icon: Icon(FontAwesomeIcons.solidUser),
-            activeColor: Colors.pink[600],
-            inactiveColor: Colors.pink[300],
+            icon: Icon(FontAwesomeIcons.solidUser,size: 20,),
+            activeColor: Colors.deepPurple[600],
+            inactiveColor: Colors.pinkAccent,
           )
         ],
       ),
