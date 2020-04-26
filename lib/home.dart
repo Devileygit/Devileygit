@@ -13,9 +13,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  Key keyPageView=PageStorageKey('pageviewstore');
-  PageController _pageController;
-  PageController _pageController2;
+ Key keyPageView=PageStorageKey('pageviewstore');
   int _currentIndex = 0;
 
   List _children;
@@ -24,16 +22,12 @@ class _HomeState extends State<Home> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _pageController = PageController();
-    _pageController2 = PageController();
     _children=[HomePage(key: keyPageView,), Chat(), Favourite(), Profile()];
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
-    _pageController.dispose();
-    _pageController2.dispose();
     super.dispose();
   }
 

@@ -130,16 +130,17 @@ class _PeerProfileState extends State<PeerProfile> {
                     ],
                   ),
                 ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Text('Photos'),
+                  ),
+                ),
               ],
             ),
           ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: EdgeInsets.all(8),
-              child: Text('Photos'),
-            ),
-          ),
+
           SliverFillRemaining(
             hasScrollBody: false,
             child:Padding(

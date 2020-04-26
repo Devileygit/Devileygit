@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:deviley_production/home.dart';
+import 'package:deviley_production/redirect.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -89,7 +90,8 @@ class _CreateUserProfileState extends State<CreateUserProfile> {
         'countryName': widget.countryName,
         'cityLatitude': widget.cityLatitude,
         'cityLongitude': widget.cityLongitude,
-        'about': widget.about
+        'about': widget.about,
+        'emailId':user.email
       });
       setState(() {
         _complete = 'Finish';
@@ -126,7 +128,7 @@ class _CreateUserProfileState extends State<CreateUserProfile> {
                     }
                   },
                 )
-              : Home()),
+              : Redirect()),
     );
   }
 }
