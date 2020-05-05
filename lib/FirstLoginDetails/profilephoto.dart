@@ -48,8 +48,8 @@ class _ProfilePictureDetailsState extends State<ProfilePictureDetails> {
       File cropped = await ImageCropper.cropImage(
           sourcePath: image.path,
           aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
-          maxHeight: 900,
-          maxWidth: 900,
+          maxHeight: 400,
+          maxWidth: 400,
           compressFormat: ImageCompressFormat.jpg,
           androidUiSettings: AndroidUiSettings(
             toolbarColor: Colors.pink[50],

@@ -17,13 +17,19 @@ class RunApp extends StatelessWidget {
     return StreamProvider<FirebaseUser>.value(
       value: AuthService().user,
       child: MaterialApp(
+        builder: (context,child){
+          return ScrollConfiguration(
+            behavior: MyBehavior(),
+            child: child,
+          );
+        },
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-            primaryColor: Colors.deepPurple[600],
+            primaryColor: Colors.deepPurple[500],
             accentColor: Colors.pink[600],
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
-            fontFamily: 'BalooPaaji',
+            fontFamily: 'Handlee',
             buttonTheme: ButtonThemeData(minWidth: 5),
             textTheme: TextTheme(
                 display1: TextStyle(color: Colors.grey[800]),
@@ -56,5 +62,14 @@ class _MyAppState extends State<MyApp> {
     } else {
       return Redirect();
     }
+  }
+}
+
+
+class MyBehavior extends ScrollBehavior {
+  @override
+  Widget buildViewportChrome(
+      BuildContext context, Widget child, AxisDirection axisDirection) {
+    return child;
   }
 }

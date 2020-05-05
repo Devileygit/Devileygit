@@ -49,25 +49,25 @@ class _HomeState extends State<Home> {
           BottomNavyBarItem(
             title: Text('Home'),
             icon: Icon(FontAwesomeIcons.solidClone,size: 20,),
-            activeColor: Colors.deepPurple[600],
+            activeColor: Colors.deepPurple[500],
             inactiveColor: Colors.pinkAccent,
           ),
           BottomNavyBarItem(
             title: Text('Chat'),
-            icon: Icon(Icons.message,size:25),
-            activeColor: Colors.deepPurple[600],
+            icon: Icon(FontAwesomeIcons.solidComment,size:20),
+            activeColor: Colors.deepPurple[500],
             inactiveColor: Colors.pinkAccent,
           ),
           BottomNavyBarItem(
             title: Text('Favourite'),
             icon: Icon(FontAwesomeIcons.solidHeart,size: 20,),
-            activeColor: Colors.deepPurple[600],
+            activeColor: Colors.deepPurple[500],
             inactiveColor: Colors.pinkAccent,
           ),
           BottomNavyBarItem(
             title: Text('Profile'),
             icon: Icon(FontAwesomeIcons.solidUser,size: 20,),
-            activeColor: Colors.deepPurple[600],
+            activeColor: Colors.deepPurple[500],
             inactiveColor: Colors.pinkAccent,
           )
         ],

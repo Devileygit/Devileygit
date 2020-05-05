@@ -80,6 +80,7 @@ class _CreateUserProfileState extends State<CreateUserProfile> {
     if (documents.length == 0) {
       Firestore.instance.collection('users').document(user.uid).setData({
         'id': user.uid,
+        'age':widget.age,
         'name': widget.name,
         'profilePhoto': profilePhotoUrl,
         'gender': widget.gender,
