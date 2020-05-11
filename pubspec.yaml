@@ -36,6 +36,7 @@ dependencies:
   image_picker: ^0.6.5+2
   image_cropper: ^1.2.1
   cached_network_image: ^2.1.0+1
+  photo_view: ^0.9.2
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +70,17 @@ flutter:
    - images/b4.jpeg
    - images/b5.jpeg
    - images/3.0.0.png
+   - gift/1.png
+   - gift/2.png
+   - gift/3.png
+   - gift/4.png
+   - gift/5.png
+   - gift/6.png
+   - gift/7.png
+   - gift/8.png
+   - gift/9.png
+   - gift/10.png
+   - gift/icons/gift_icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -88,6 +100,12 @@ flutter:
     - family: Handlee
       fonts:
         - asset: fonts/Handlee-Regular.ttf
+    - family: Courgette
+      fonts:
+        - asset: fonts/Courgette-Regular.ttf
+    - family: Flamenco
+      fonts:
+        - asset: fonts/Flamenco-Regular.ttf
 
   #   - family: Trajan Pro
   #     fonts:

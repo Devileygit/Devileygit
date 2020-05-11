@@ -1,4 +1,3 @@
-import 'package:deviley_production/FirstLoginDetails/location.dart';
 import 'package:deviley_production/login.dart';
 import 'package:deviley_production/redirect.dart';
 import 'package:deviley_production/services/auth.dart';
@@ -8,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(RunApp());
+    runApp(RunApp());
 }
 
 class RunApp extends StatelessWidget {
@@ -29,15 +28,19 @@ class RunApp extends StatelessWidget {
             accentColor: Colors.pink[600],
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
-            fontFamily: 'Handlee',
+            fontFamily: 'Flamenco',
             buttonTheme: ButtonThemeData(minWidth: 5),
+            snackBarTheme: SnackBarThemeData(
+              backgroundColor: Colors.deepPurple[500],
+              contentTextStyle: TextStyle(color: Colors.grey[100],fontFamily:'Flamenco',fontWeight: FontWeight.bold )
+            ),
             textTheme: TextTheme(
-                display1: TextStyle(color: Colors.grey[800]),
-                display2: TextStyle(color: Colors.grey[800]),
-                display3: TextStyle(color: Colors.grey[800]),
-                display4: TextStyle(color: Colors.grey[800]),
-                body1: TextStyle(color: Colors.grey[800]),
-                body2: TextStyle(color: Colors.grey[800]),
+                display1: TextStyle(color: Colors.grey[800],height: 1.4,fontWeight: FontWeight.bold),
+                display2: TextStyle(color: Colors.grey[800],height: 1.4,fontWeight: FontWeight.bold),
+                display3: TextStyle(color: Colors.grey[800],height: 1.4,fontWeight: FontWeight.bold),
+                display4: TextStyle(color: Colors.grey[800],height: 1.4,fontWeight: FontWeight.bold),
+                body1: TextStyle(color: Colors.grey[800],height: 1.4,fontWeight: FontWeight.bold),
+                body2: TextStyle(color: Colors.grey[800],height: 1.4,fontWeight: FontWeight.bold),
                 button: TextStyle(
                     color: Colors.grey[800],
                     fontSize: 17,

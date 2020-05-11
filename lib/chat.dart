@@ -1,3 +1,4 @@
+import 'package:deviley_production/ChaatService/chatpage.dart';
 import 'package:flutter/material.dart';
 
 
@@ -13,7 +14,12 @@ class _ChatState extends State<Chat> {
       height: 400,
       color: Colors.green,
       child: Center(
-        child: Text('Chat'),
+        child: FlatButton(
+          child: Text('chat'),
+          onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatPage()));
+          },
+        ),
       ),
     );
   }
