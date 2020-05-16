@@ -1,4 +1,7 @@
+import 'package:deviley_production/ChatService/chatpage.dart';
 import 'package:deviley_production/galleryservice/gallery.dart';
+import 'package:deviley_production/services/databse.dart';
+import 'package:deviley_production/services/sharedprefs.dart';
 import 'package:flutter/material.dart';
 import 'package:deviley_production/galleryservice/galleryitem.dart';
 import 'package:flutter/scheduler.dart';
@@ -13,34 +16,62 @@ class PeerProfile extends StatefulWidget {
 }
 
 class _PeerProfileState extends State<PeerProfile> {
-  String name='';
+  Database database = Database();
+  String myUserId;
+  String name = '';
   String addictionString = '';
   ScrollController _scrollController = new ScrollController();
   ScrollController _scrollController2 = new ScrollController();
-  List<AssetImage> gifts=[];
+  List<AssetImage> gifts = [];
 
-  Future<int> showGift() async{
+  Future<int> showGift() async {
     return showDialog(
-      context: context,
-      builder: (BuildContext context){
-        return SimpleDialog(
-          title: Text('Gift'),
-          children: <Widget>[
-            for(var i=0; i<gifts.length;i++) SimpleDialogOption(
-              onPressed: (){
-                Navigator.of(context).pop(i);
-              },
-              child: ListTile(
-                leading: Image(image:gifts[i]),
-                title: Text('Gift $i'),
-                subtitle: Text('Something Sexy'),
-              ),
-            )
+        context: context,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+            elevation: 4,
+            backgroundColor: Colors.pink[50],
+            title: Text('Gift'),
+            children: <Widget>[
+              for (var i = 0; i < gifts.length; i++)
+                SimpleDialogOption(
+                  onPressed: () {
+                    Navigator.of(context).pop(i);
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width - 10,
+                    child: ListTile(
+                      leading: Image(image: gifts[i]),
+                      title: Text('Gift $i'),
+                      subtitle: Text('Something Sexy'),
+                    ),
+                  ),
+                )
+            ],
+          );
+        });
+  }
 
-          ],
-        );
-      }
-    );
+  getChatRoomId(String a, String b) {
+    if (a.hashCode > b.hashCode) {
+      return "$b\_$a";
+    } else {
+      return "$a\_$b";
+    }
+  }
+
+  createChatRoom(String userId) {
+    List<String> users = [myUserId, widget.snapShot['id']];
+    String chatRoomId = getChatRoomId(myUserId, widget.snapShot['id']);
+    Map<String, dynamic> chatRoom = {"users": users, "chatRoomId": chatRoomId};
+
+    database.addChatRoom(chatRoom, chatRoomId);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ChatPage(
+                  chatRoomId: chatRoomId,
+                )));
   }
 
   @override
@@ -58,10 +89,19 @@ class _PeerProfileState extends State<PeerProfile> {
       }
     }
 
-    for(int j=1;j<=10;j++){
+    for (int j = 1; j <= 10; j++) {
       gifts.add(AssetImage('gift/$j.png'));
     }
-    name=widget.snapShot['name'];
+    name = widget.snapShot['name'];
+    getMyUserId();
+  }
+
+  getMyUserId() async {
+    SharedPrefs.getUserIdSharedPreference().then((value) {
+      setState(() {
+        myUserId = value;
+      });
+    });
   }
 
   void open(BuildContext context, final int index) {
@@ -227,10 +267,7 @@ class _PeerProfileState extends State<PeerProfile> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(0),
                             gradient: LinearGradient(
-                                colors: [
-                                  Colors.pinkAccent,
-                                  Colors.pink[50]
-                                ],
+                                colors: [Colors.pinkAccent, Colors.pink[50]],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight)),
                         child: Column(
@@ -256,10 +293,7 @@ class _PeerProfileState extends State<PeerProfile> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(0),
                             gradient: LinearGradient(
-                                colors: [
-                                  Colors.pinkAccent,
-                                  Colors.pink[50]
-                                ],
+                                colors: [Colors.pinkAccent, Colors.pink[50]],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight)),
                         child: Column(
@@ -292,10 +326,7 @@ class _PeerProfileState extends State<PeerProfile> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(0),
                             gradient: LinearGradient(
-                                colors: [
-                                  Colors.pinkAccent,
-                                  Colors.pink[50]
-                                ],
+                                colors: [Colors.pinkAccent, Colors.pink[50]],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight)),
                         child: Column(
@@ -385,29 +416,30 @@ class _PeerProfileState extends State<PeerProfile> {
                     SizedBox(
                       height: 15,
                     ),
-                    Builder(
-                      builder:(context) {
-                        return Center(
-                          child: Container(
-                            child: InkWell(
-                              child: Image.asset(
-                                'gift/icons/gift_icon.png', scale: 0.5,),
-                              onTap: () {
-                                showGift().then((v) {
-                                  print('we got ' + v.toString());
-                                  Scaffold.of(context).showSnackBar(SnackBar(
-                                    content: Text('Gift $v sent to $name'),
-                                    duration: Duration(seconds: 2),
-                                  ));
-                                });
-
-                              },
+                    Builder(builder: (context) {
+                      return Center(
+                        child: Container(
+                          child: InkWell(
+                            child: Image.asset(
+                              'gift/icons/gift_icon.png',
+                              scale: 0.5,
                             ),
+                            onTap: () {
+                              showGift().then((v) {
+                                print('we got ' + v.toString());
+                                Scaffold.of(context).showSnackBar(SnackBar(
+                                  content: Text('Gift $v sent to $name'),
+                                  duration: Duration(seconds: 2),
+                                ));
+                              });
+                            },
                           ),
-                        );
-                      }
+                        ),
+                      );
+                    }),
+                    SizedBox(
+                      height: 15,
                     ),
-                    SizedBox(height: 15,),
                     Card(
                       margin: EdgeInsets.all(0),
                       elevation: 4,
@@ -515,37 +547,6 @@ class _PeerProfileState extends State<PeerProfile> {
                   ],
                 ),
               ),
-              SliverFillRemaining(
-                hasScrollBody: false,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    height: 150,
-                    decoration: BoxDecoration(
-                        color: Color.fromRGBO(94, 53, 177, 0.2),
-                        borderRadius: BorderRadius.circular(15)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        IconButton(
-                          icon: Icon(
-                            Icons.favorite,
-                            size: 40,
-                          ),
-                          onPressed: () {},
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            Icons.chat,
-                            size: 40,
-                          ),
-                          onPressed: () {},
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              )
             ],
           ),
         ));
@@ -564,7 +565,6 @@ class _PeerProfileState extends State<PeerProfile> {
             style: TextStyle(fontSize: 12, color: Colors.grey[800]),
           ),
         ),
-
         Padding(
           padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
           child: Text(
@@ -575,5 +575,4 @@ class _PeerProfileState extends State<PeerProfile> {
       ],
     );
   }
-
 }

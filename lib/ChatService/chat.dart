@@ -1,8 +1,9 @@
-import 'package:deviley_production/ChaatService/chatpage.dart';
+import 'package:deviley_production/ChatService/chatpage.dart';
 import 'package:flutter/material.dart';
 
 
 class Chat extends StatefulWidget {
+  Chat({Key key}) : super(key: key);
   @override
   _ChatState createState() => _ChatState();
 }

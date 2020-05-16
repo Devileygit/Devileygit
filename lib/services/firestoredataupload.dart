@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:deviley_production/home.dart';
 import 'package:deviley_production/redirect.dart';
+import 'package:deviley_production/services/sharedprefs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -48,6 +49,7 @@ class _CreateUserProfileState extends State<CreateUserProfile> {
   StorageUploadTask _uploadTask;
   StorageReference _storageReference;
   String _complete;
+
   Future imageUpload(FirebaseUser user) async {
     String uploadPath =
         'images/${user.email}/profile/profile_photo_+${user.uid}+${DateTime.now()}';
@@ -80,7 +82,7 @@ class _CreateUserProfileState extends State<CreateUserProfile> {
     if (documents.length == 0) {
       Firestore.instance.collection('users').document(user.uid).setData({
         'id': user.uid,
-        'age':widget.age,
+        'age': widget.age,
         'name': widget.name,
         'profilePhoto': profilePhotoUrl,
         'gender': widget.gender,
@@ -92,8 +94,13 @@ class _CreateUserProfileState extends State<CreateUserProfile> {
         'cityLatitude': widget.cityLatitude,
         'cityLongitude': widget.cityLongitude,
         'about': widget.about,
-        'emailId':user.email
+        'emailId': user.email
       });
+
+      SharedPrefs.saveUserLoggedInSharedPreference(true);
+      SharedPrefs.saveUserIdSharedPreference(user.uid);
+      SharedPrefs.saveUserEmailIdSharedPreference(user.email);
+
       setState(() {
         _complete = 'Finish';
       });
@@ -122,10 +129,7 @@ class _CreateUserProfileState extends State<CreateUserProfile> {
                     if (snapshot.connectionState == ConnectionState.active) {
                       return Container();
                     } else {
-                      return Center(
-                          child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation(Colors.deepPurple),
-                      ));
+                      return Center(child: CircularProgressIndicator());
                     }
                   },
                 )

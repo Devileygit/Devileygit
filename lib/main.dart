@@ -1,3 +1,4 @@
+import 'package:deviley_production/home.dart';
 import 'package:deviley_production/login.dart';
 import 'package:deviley_production/redirect.dart';
 import 'package:deviley_production/services/auth.dart';
@@ -7,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-    runApp(RunApp());
+  runApp(RunApp());
 }
 
 class RunApp extends StatelessWidget {
@@ -16,7 +17,7 @@ class RunApp extends StatelessWidget {
     return StreamProvider<FirebaseUser>.value(
       value: AuthService().user,
       child: MaterialApp(
-        builder: (context,child){
+        builder: (context, child) {
           return ScrollConfiguration(
             behavior: MyBehavior(),
             child: child,
@@ -31,16 +32,36 @@ class RunApp extends StatelessWidget {
             fontFamily: 'Flamenco',
             buttonTheme: ButtonThemeData(minWidth: 5),
             snackBarTheme: SnackBarThemeData(
-              backgroundColor: Colors.deepPurple[500],
-              contentTextStyle: TextStyle(color: Colors.grey[100],fontFamily:'Flamenco',fontWeight: FontWeight.bold )
-            ),
+                backgroundColor: Colors.deepPurple[500],
+                contentTextStyle: TextStyle(
+                    color: Colors.grey[100],
+                    fontFamily: 'Flamenco',
+                    fontWeight: FontWeight.bold)),
             textTheme: TextTheme(
-                display1: TextStyle(color: Colors.grey[800],height: 1.4,fontWeight: FontWeight.bold),
-                display2: TextStyle(color: Colors.grey[800],height: 1.4,fontWeight: FontWeight.bold),
-                display3: TextStyle(color: Colors.grey[800],height: 1.4,fontWeight: FontWeight.bold),
-                display4: TextStyle(color: Colors.grey[800],height: 1.4,fontWeight: FontWeight.bold),
-                body1: TextStyle(color: Colors.grey[800],height: 1.4,fontWeight: FontWeight.bold),
-                body2: TextStyle(color: Colors.grey[800],height: 1.4,fontWeight: FontWeight.bold),
+                headline4: TextStyle(
+                    color: Colors.grey[800],
+                    height: 1.4,
+                    fontWeight: FontWeight.bold),
+                headline3: TextStyle(
+                    color: Colors.grey[800],
+                    height: 1.4,
+                    fontWeight: FontWeight.bold),
+                headline2: TextStyle(
+                    color: Colors.grey[800],
+                    height: 1.4,
+                    fontWeight: FontWeight.bold),
+                headline1: TextStyle(
+                    color: Colors.grey[800],
+                    height: 1.4,
+                    fontWeight: FontWeight.bold),
+                bodyText2: TextStyle(
+                    color: Colors.grey[800],
+                    height: 1.4,
+                    fontWeight: FontWeight.bold),
+                bodyText1: TextStyle(
+                    color: Colors.grey[800],
+                    height: 1.4,
+                    fontWeight: FontWeight.bold),
                 button: TextStyle(
                     color: Colors.grey[800],
                     fontSize: 17,
@@ -57,17 +78,23 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  bool userLoggedIn;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<FirebaseUser>(context);
-    if (user == null) {
-      return Login();
+    if (userLoggedIn == true) {
+      return Home();
     } else {
       return Redirect();
     }
   }
 }
-
 
 class MyBehavior extends ScrollBehavior {
   @override

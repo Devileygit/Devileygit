@@ -1,3 +1,4 @@
+import 'package:deviley_production/services/sharedprefs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -62,6 +63,9 @@ class AuthService {
   // sign out With Email Pass
   Future signOut() async {
     try {
+      SharedPrefs.saveUserLoggedInSharedPreference(false);
+      SharedPrefs.saveUserIdSharedPreference("");
+      SharedPrefs.saveUserEmailIdSharedPreference("");
       return await _auth.signOut();
     } on Exception catch (e) {
       print(e.toString());
@@ -73,6 +77,9 @@ class AuthService {
 
   Future googleSignOut() async {
     try {
+      SharedPrefs.saveUserLoggedInSharedPreference(false);
+      SharedPrefs.saveUserIdSharedPreference("");
+      SharedPrefs.saveUserEmailIdSharedPreference("");
       await _googleSignIn.disconnect();
       await _googleSignIn.signOut();
       return await _auth.signOut();

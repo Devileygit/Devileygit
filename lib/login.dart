@@ -1,11 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:deviley_production/FirstLoginDetails/name.dart';
 import 'package:deviley_production/fadeinAnimation.dart';
-import 'package:deviley_production/home.dart';
 import 'package:deviley_production/redirect.dart';
 import 'package:deviley_production/register.dart';
 import 'package:deviley_production/services/auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -156,7 +152,7 @@ class _LoginState extends State<Login> {
                           onPressed: () {
                             //todo, forgot pass
                           },
-                          child: Text('Forgot Pass?'),
+                          child: Text('Forgot Password?'),
                           splashColor: Colors.transparent,
                           highlightColor: Colors.pink[50],
                           shape: RoundedRectangleBorder(

@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:deviley_production/FirstLoginDetails/name.dart';
-import 'package:deviley_production/services/via.dart';
+import 'package:deviley_production/login.dart';
+import 'package:deviley_production/main.dart';
+import 'package:deviley_production/services/sharedprefs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:async/async.dart';
 
 import 'home.dart';
 
@@ -13,74 +14,71 @@ class Redirect extends StatefulWidget {
   _RedirectState createState() => _RedirectState();
 }
 
-class _RedirectState extends State<Redirect> with AutomaticKeepAliveClientMixin<Redirect> {
-
-  @override
-  bool get wantKeepAlive => true;
+class _RedirectState extends State<Redirect> {
+  bool userLoggedIn;
 
   Future queryCheck(FirebaseUser user) async {
-    final AsyncMemoizer _asyncMemoizer = AsyncMemoizer();
+    QuerySnapshot query = await Firestore.instance
+        .collection('users')
+        .where('id', isEqualTo: user.uid)
+        .getDocuments();
+    List<DocumentSnapshot> documents = query.documents;
 
-    return _asyncMemoizer.runOnce(() async{
-      QuerySnapshot query = await Firestore.instance
-          .collection('users')
-          .where('id', isEqualTo: user.uid)
-          .getDocuments();
-      List<DocumentSnapshot> documents = query.documents;
-
-
-      if (documents.length == 0) {
-        return 1;
-      } else {
-        return null;
-      }
-    });
-
-
+    if (documents.length == 0) {
+      return 1;
+    } else {
+      return null;
+    }
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUserLoggedInState();
+  }
+
+  getUserLoggedInState() async {
+    await SharedPrefs.getUserLoggedInSharedPreference().then((value) {
+      setState(() {
+        userLoggedIn = value;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     final user = Provider.of<FirebaseUser>(context);
 
     return Scaffold(
-      body: FutureBuilder<dynamic>(
-          future: queryCheck(user),
-          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              print(user.email);
-              if (snapshot.data == null) {
-                print(snapshot.data);
-                return Home();
-              } else {
-                print(snapshot.data);
-                return NameDetails();
-              }
-            } else {
-              return Container(
-                child: Center(child: CircularProgressIndicator()),
-              );
-            }
-          }),
+      body: Container(
+          child: userLoggedIn == true
+              ? Home()
+              : (user != null
+                  ? FutureBuilder<dynamic>(
+                      future: queryCheck(user),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<dynamic> snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          print(user.email);
+                          if (snapshot.data == null) {
+                            print(snapshot.data);
+                            SharedPrefs.saveUserLoggedInSharedPreference(true);
+                            SharedPrefs.saveUserIdSharedPreference(user.uid);
+                            SharedPrefs.saveUserEmailIdSharedPreference(
+                                user.email);
+                            return Home();
+                          } else {
+                            print(snapshot.data);
+                            return NameDetails();
+                          }
+                        } else {
+                          return Container(
+                            child: Center(child: CircularProgressIndicator()),
+                          );
+                        }
+                      })
+                  : Login())),
     );
-
-
-
-
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

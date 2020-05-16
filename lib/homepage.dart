@@ -13,73 +13,91 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  PageController _pageController;
+  ScrollController _listController;
+  //PageController _pageController;
   Stream _stream;
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _stream = Firestore.instance.collection('users').snapshots();
-    _pageController = PageController();
+    _listController = ScrollController()..addListener((){
+      setState(() {
+
+      });
+    });
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
-    _pageController.dispose();
+    _listController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<FirebaseUser>(context);
+    print(user.providerData[1].providerId);
     return Scaffold(
       backgroundColor: Colors.pink[50],
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        actions: <Widget>[
-          Padding(
-            padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-            child: IconButton(
-              icon: Icon(
-                Icons.tune,
-                color: Colors.grey[800],
-              ),
-              onPressed: () {
-                print('tapped');
-              },
+      body: Stack(
+        children: <Widget>[
+          ClipPath(
+            clipper: ClipperHome(),
+            child: Container(
+              height: 400,
+              color: Colors.pink[600],
             ),
           ),
-        ],
-      ),
-      body: Center(
-        child: Container(
-          height: 3 * MediaQuery.of(context).size.height / 4,
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                child: StreamBuilder(
+          Center(
+            child: Container(
+
+              child: CustomScrollView(
+                physics: BouncingScrollPhysics(),
+              controller: _listController,
+              slivers: <Widget>[
+                SliverAppBar(
+                  floating: true,
+                  backgroundColor: Colors.pink[600],
+                  elevation: 0,
+                  actions: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: IconButton(
+                        color: Colors.grey[50],
+                        icon: Icon(Icons.tune),
+                        onPressed: (){},
+                      ),
+                    )
+                  ],
+                ),
+
+                StreamBuilder(
+
                     stream: _stream,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        return PageView.builder(
-                          controller: _pageController,
-                          physics: BouncingScrollPhysics(),
-                          itemBuilder: (context, index) => pageWidget(
-                              context, snapshot.data.documents[index], user),
-                          itemCount: snapshot.data.documents.length,
+                        return SliverList(
+
+                          delegate: SliverChildBuilderDelegate((context,index){
+                            return pageWidget(context, snapshot.data.documents[index], user);
+                          },
+                            childCount: snapshot.data.documents.length,
+                          ),
                         );
                       } else {
-                        return Container();
+                        return SliverToBoxAdapter(child: Container(),);
                       }
-                    }),
+                    })
+              ],
+
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -98,53 +116,54 @@ class _HomePageState extends State<HomePage> {
         },
         child: Padding(
           padding: EdgeInsets.fromLTRB(20, 5, 20, 20),
-          child: Stack(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: [
-                      BoxShadow(
-                          blurRadius: 4,
-                          spreadRadius: 4,
-                          offset: Offset(0, 5),
-                          color: Color.fromRGBO(0, 0, 0, 0.5))
-                    ],
-                    image: DecorationImage(
-                        image: NetworkImage(documentSnapshot['profilePhoto']),
-                        fit: BoxFit.cover,
-                        alignment: Alignment.center)),
-                child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      height: 100,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(15),
-                            bottomRight: Radius.circular(15)),
-                        gradient: LinearGradient(
-                            colors: [Colors.black, Colors.transparent],
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter),
-                      ),
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              documentSnapshot['name'] +
-                                  ', ' +
-                                  documentSnapshot['age'],
-                              style: TextStyle(
-                                  fontSize: 20, color: Colors.grey[100]),
-                            ),
-                          ],
+          child: Card(
+            color: Colors.transparent,
+            margin: EdgeInsets.all(0),
+            elevation: 5,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            child: Stack(
+              children: <Widget>[
+                Container(
+                  height: 420,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.circular(15),
+
+                      image: DecorationImage(
+                          image: NetworkImage(documentSnapshot['profilePhoto']),
+                          fit: BoxFit.cover,
+                          alignment: Alignment.center)),
+                  child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        height: 100,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(15),
+                              bottomRight: Radius.circular(15)),
+                          gradient: LinearGradient(
+                              colors: [Colors.black, Colors.transparent],
+                              begin: Alignment.bottomCenter,
+                              end: Alignment.topCenter),
                         ),
-                      ),
-                    )),
-              ),
-            ],
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                documentSnapshot['name'] +
+                                    ', ' +
+                                    documentSnapshot['age'],
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.grey[100]),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )),
+                ),
+              ],
+            ),
           ),
         ),
       );
@@ -153,3 +172,22 @@ class _HomePageState extends State<HomePage> {
     }
   }
 }
+
+class ClipperHome extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    var path = new Path();
+    path.lineTo(0.0,  size.height -150);
+    path.quadraticBezierTo(
+        size.width / 4, 3*size.height/4-25, size.width / 2, 3*size.height/4-25 );
+    path.quadraticBezierTo(
+        3 * size.width / 4, 3*size.height/4-25, size.width, size.height -150);
+    path.lineTo(size.width, 0);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+}
+
