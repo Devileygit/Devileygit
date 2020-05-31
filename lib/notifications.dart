@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-class Favourite extends StatefulWidget {
+class Notifications extends StatefulWidget {
+  Notifications({Key key}) : super(key: key);
   @override
-  _FavouriteState createState() => _FavouriteState();
+  _NotificationsState createState() => _NotificationsState();
 }
 
-class _FavouriteState extends State<Favourite> {
+class _NotificationsState extends State<Notifications> {
   @override
   Widget build(BuildContext context) {
     return Container(

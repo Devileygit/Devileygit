@@ -47,7 +47,7 @@ class _LoginState extends State<Login> {
                           width: MediaQuery.of(context).size.width,
                           height: 300,
                           child: CustomPaint(
-                            painter: Pattern(),
+                            painter: PatternMain(),
                           ),
                         ),
                       ],
@@ -78,7 +78,7 @@ class _LoginState extends State<Login> {
                   ),
                 ],
               ),
-              FadeIn2(
+              FadeIn(
                 4,
                 Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
@@ -107,7 +107,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
-              FadeIn2(
+              FadeIn(
                 4,
                 Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -138,7 +138,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
-              FadeIn2(
+              FadeIn(
                 4,
                 Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 8),
@@ -163,7 +163,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
-              FadeIn2(
+              FadeIn(
                 4,
                 Padding(
                   padding: EdgeInsets.fromLTRB(8, 0, 8, 8),
@@ -196,7 +196,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
-              FadeIn2(
+              FadeIn(
                 4,
                 Padding(
                   padding: const EdgeInsets.fromLTRB(15.0, 0, 15.0, 5.0),
@@ -227,7 +227,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
-              FadeIn2(
+              FadeIn(
                 5,
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -265,7 +265,7 @@ class _LoginState extends State<Login> {
                   ],
                 ),
               ),
-              FadeIn2(
+              FadeIn(
                   5.5,
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -315,7 +315,7 @@ class Clipper extends CustomClipper<Path> {
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
 
-class Pattern extends CustomPainter {
+class PatternMain extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     // TODO: implement paint
@@ -567,6 +567,60 @@ class Pattern extends CustomPainter {
 
     canvas.drawCircle(Offset(900, 208), 30, paint2);
     canvas.drawCircle(Offset(900, 208), 20, paint1);
+
+    //sixth row
+
+    canvas.drawCircle(Offset(30, 260), 30, paint3);
+    canvas.drawCircle(Offset(30, 260), 20, paint4);
+
+    canvas.drawCircle(Offset(90, 260), 30, paint1);
+    canvas.drawCircle(Offset(90, 260), 20, paint3);
+
+    canvas.drawCircle(Offset(150, 260), 30, paint2);
+    canvas.drawCircle(Offset(150, 260), 20, paint4);
+
+    canvas.drawCircle(Offset(210, 260), 30, paint3);
+    canvas.drawCircle(Offset(210, 260), 20, paint2);
+
+    canvas.drawCircle(Offset(270, 260), 30, paint3);
+    canvas.drawCircle(Offset(270, 260), 20, paint1);
+
+    canvas.drawCircle(Offset(330, 260), 30, paint1);
+    canvas.drawCircle(Offset(330, 260), 20, paint4);
+
+    canvas.drawCircle(Offset(390, 260), 30, paint1);
+    canvas.drawCircle(Offset(390, 260), 20, paint2);
+
+    canvas.drawCircle(Offset(450, 260), 30, paint1);
+    canvas.drawCircle(Offset(450, 260), 20, paint3);
+
+    canvas.drawCircle(Offset(510, 260), 30, paint3);
+    canvas.drawCircle(Offset(510, 260), 20, paint2);
+
+    canvas.drawCircle(Offset(570, 260), 30, paint4);
+    canvas.drawCircle(Offset(570, 260), 20, paint1);
+
+    canvas.drawCircle(Offset(630, 260), 30, paint4);
+    canvas.drawCircle(Offset(630, 260), 20, paint1);
+
+    canvas.drawCircle(Offset(690, 260), 30, paint3);
+    canvas.drawCircle(Offset(690, 260), 20, paint2);
+
+    canvas.drawCircle(Offset(750, 260), 30, paint3);
+    canvas.drawCircle(Offset(750, 260), 20, paint1);
+
+    canvas.drawCircle(Offset(810, 260), 30, paint2);
+    canvas.drawCircle(Offset(810, 260), 20, paint1);
+
+    canvas.drawCircle(Offset(870, 260), 30, paint1);
+    canvas.drawCircle(Offset(870, 260), 20, paint4);
+
+    canvas.drawCircle(Offset(930, 260), 30, paint3);
+    canvas.drawCircle(Offset(930, 260), 20, paint1);
+
+    canvas.drawCircle(Offset(990, 260), 30, paint1);
+    canvas.drawCircle(Offset(990, 260), 20, paint3);
+
   }
 
   @override

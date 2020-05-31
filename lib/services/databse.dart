@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Database {
-  Future<void> addChat(String chatRoomId, chatData) {
+  Future addChat(String chatRoomId, chatData) async{
     Firestore.instance
         .collection('chatRoom')
         .document(chatRoomId)
@@ -12,7 +12,7 @@ class Database {
     });
   }
 
-  Future addChatRoom(chatRoom, chatRoomId) {
+  Future addChatRoom(chatRoom, chatRoomId) async{
     Firestore.instance
         .collection('chatRoom')
         .document(chatRoomId)
@@ -27,7 +27,7 @@ class Database {
         .collection('chatRoom')
         .document(chatRoomId)
         .collection('chats')
-        .orderBy('time')
+        .orderBy('time', descending: true)
         .snapshots();
   }
 
@@ -37,4 +37,21 @@ class Database {
         .where('users', arrayContains: userId)
         .snapshots();
   }
+
+  Future addFavourite(String myUid, String peerUid ) async{
+    Firestore.instance
+        .collection('users')
+        .document(myUid)
+        .updateData({
+      'favouriteList':FieldValue.arrayUnion([peerUid])
+    });
+  }
+  
+  getPersonalData(String myUid) async{
+    return Firestore.instance
+        .collection('users')
+        .document(myUid)
+        .snapshots();
+  }
+
 }

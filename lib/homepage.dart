@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:deviley_production/favourites.dart';
 import 'package:deviley_production/peerprofile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -40,16 +41,26 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<FirebaseUser>(context);
-    print(user.providerData[1].providerId);
     return Scaffold(
       backgroundColor: Colors.pink[50],
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.album),
+        heroTag: 'favouritePage',
+        onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>Favourites()));
+        },
+      ),
       body: Stack(
         children: <Widget>[
           ClipPath(
             clipper: ClipperHome(),
             child: Container(
               height: 400,
-              color: Colors.pink[600],
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.deepPurple[600],Colors.deepPurple[600]]
+                )
+              ),
             ),
           ),
           Center(
@@ -60,8 +71,13 @@ class _HomePageState extends State<HomePage> {
               controller: _listController,
               slivers: <Widget>[
                 SliverAppBar(
+                  title: Padding(
+                    padding: const EdgeInsets.only(left: 8),
+                    child: Text('Deviley',style: TextStyle(fontSize: 30,fontWeight: FontWeight.w900),),
+                  ),
+
                   floating: true,
-                  backgroundColor: Colors.pink[600],
+                  backgroundColor: Colors.deepPurple[600],
                   elevation: 0,
                   actions: <Widget>[
                     Padding(
@@ -81,7 +97,6 @@ class _HomePageState extends State<HomePage> {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         return SliverList(
-
                           delegate: SliverChildBuilderDelegate((context,index){
                             return pageWidget(context, snapshot.data.documents[index], user);
                           },

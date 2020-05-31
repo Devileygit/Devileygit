@@ -1,6 +1,7 @@
+import 'package:animations/animations.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:deviley_production/ChatService/chat.dart';
-import 'package:deviley_production/favourite.dart';
+import 'package:deviley_production/notifications.dart';
 import 'package:deviley_production/homepage.dart';
 import 'package:deviley_production/profile.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,8 +14,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
- Key keyPageView=PageStorageKey('pageviewstore');
+ Key keyPageView1=PageStorageKey('pageviewstore');
  Key keyPageView2=PageStorageKey('chatviewstore');
+ Key keyPageView3=PageStorageKey('notificationsviewstore');
+ Key keyPageView4=PageStorageKey('profileviewstore');
   int _currentIndex = 0;
 
   List _children;
@@ -24,7 +27,7 @@ class _HomeState extends State<Home> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _children=[HomePage(key: keyPageView,), Chat(key: keyPageView2,), Favourite(), Profile()];
+    _children=[HomePage(key: keyPageView1,), Chat(key: keyPageView2,), Notifications(key: keyPageView3,), Profile(key: keyPageView4,)];
   }
 
   @override
@@ -70,8 +73,8 @@ class _HomeState extends State<Home> {
               inactiveColor: Colors.pinkAccent,
             ),
             BottomNavyBarItem(
-              title: Text('Favourite'),
-              icon: Icon(FontAwesomeIcons.solidHeart,size: 20,),
+              title: Text('Notifications'),
+              icon: Icon(FontAwesomeIcons.solidBell,size: 20,),
               activeColor: Colors.deepPurple[500],
               inactiveColor: Colors.pinkAccent,
             ),
@@ -86,8 +89,20 @@ class _HomeState extends State<Home> {
       ),
       body: PageStorage(
         bucket: bucket,
-        child: _children[_currentIndex],
+        child: PageTransitionSwitcher(
+          transitionBuilder: (child,primaryAnimation,secondaryAnimation){
+            return FadeThroughTransition(
+              animation: primaryAnimation,
+              secondaryAnimation: secondaryAnimation,
+              child: child,
+            );
+        },
+          child: _children[_currentIndex],
+        ),
       )
     );
   }
 }
+
+
+//child: _children[_currentIndex],

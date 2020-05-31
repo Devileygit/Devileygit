@@ -77,7 +77,7 @@ class _RegisterState extends State<Register> {
                   ),
                 ],
               ),
-              FadeIn2(
+              FadeIn(
                 4,
                 Padding(
                   padding: EdgeInsets.all(20),
@@ -106,7 +106,7 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
               ),
-              FadeIn2(
+              FadeIn(
                 4,
                 Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
@@ -137,7 +137,7 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
               ),
-              FadeIn2(
+              FadeIn(
                 4,
                 Padding(
                   padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
@@ -168,7 +168,7 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
               ),
-              FadeIn2(
+              FadeIn(
                 4,
                 Padding(
                   padding: EdgeInsets.fromLTRB(8, 10, 8, 8),
@@ -200,7 +200,7 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
               ),
-              FadeIn2(
+              FadeIn(
                   5.5,
                   Padding(
                     padding: const EdgeInsets.all(8.0),

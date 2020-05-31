@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'main.dart';
 
 class Profile extends StatefulWidget {
+  Profile({Key key}) : super(key: key);
   @override
   _ProfileState createState() => _ProfileState();
 }

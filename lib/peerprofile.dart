@@ -60,7 +60,7 @@ class _PeerProfileState extends State<PeerProfile> {
     }
   }
 
-  createChatRoom(String userId) {
+  createChatRoom() {
     List<String> users = [myUserId, widget.snapShot['id']];
     String chatRoomId = getChatRoomId(myUserId, widget.snapShot['id']);
     Map<String, dynamic> chatRoom = {"users": users, "chatRoomId": chatRoomId};
@@ -71,20 +71,24 @@ class _PeerProfileState extends State<PeerProfile> {
         MaterialPageRoute(
             builder: (context) => ChatPage(
                   chatRoomId: chatRoomId,
+              snapShot: widget.snapShot,
                 )));
   }
+
+  addFavourite(){
+    database.addFavourite(myUserId, widget.snapShot['id']);
+  }
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     for (int i = 0; i < widget.snapShot['addictionList'].length; i++) {
-      print(i);
       if (i != widget.snapShot['addictionList'].length - 1) {
         addictionString =
             addictionString + widget.snapShot['addictionList'][i] + ', ';
       } else {
-        print('....' + i.toString());
         addictionString = addictionString + widget.snapShot['addictionList'][i];
       }
     }
@@ -133,7 +137,7 @@ class _PeerProfileState extends State<PeerProfile> {
               mini: true,
               //backgroundColor: Colors.pinkAccent,
               heroTag: 0,
-              onPressed: () {},
+              onPressed: addFavourite,
             ),
             SizedBox(
               height: 10,
@@ -142,7 +146,7 @@ class _PeerProfileState extends State<PeerProfile> {
               child: Icon(Icons.message),
               heroTag: 1,
               //backgroundColor: Colors.pinkAccent,
-              onPressed: () {},
+              onPressed: createChatRoom,
             ),
             SizedBox(
               height: 10,
@@ -420,9 +424,33 @@ class _PeerProfileState extends State<PeerProfile> {
                       return Center(
                         child: Container(
                           child: InkWell(
-                            child: Image.asset(
-                              'gift/icons/gift_icon.png',
-                              scale: 0.5,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Image.asset(
+                                  'gift/icons/gift_icon_2.png',
+                                  scale: 2.5,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    ShaderMask(
+                                      shaderCallback: (rect)=>
+                                      LinearGradient(
+                                        colors: [Colors.deepPurple[600],Colors.pink[600]],
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight
+                                      ).createShader(rect),
+                                        child: Text('Send Gifts',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.white),)
+                                    ),
+                                    Container(
+                                      width: 200,
+                                        child: Text('Send Gifts To Start Conversation And Get Closer To Know Each Other',style: TextStyle(fontSize: 13,fontStyle: FontStyle.italic),)),
+                                  ],
+                                )
+                              ],
                             ),
                             onTap: () {
                               showGift().then((v) {

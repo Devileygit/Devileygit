@@ -16,6 +16,7 @@ class _AgeDetailsState extends State<AgeDetails> {
 
   Future datePick() async {
     DateTime picked = await showDatePicker(
+      initialEntryMode: DatePickerEntryMode.input,
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(1920),
