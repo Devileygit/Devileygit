@@ -14,7 +14,7 @@ class _FavouritesState extends State<Favourites> {
   Database database = Database();
   String myUid;
 
-  getUserIdAndFavouriteList() async {
+  getUserIdAndUserData() async {
     await SharedPrefs.getUserIdSharedPreference().then((value) {
       setState(() {
         myUid=value;
@@ -31,7 +31,7 @@ class _FavouritesState extends State<Favourites> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getUserIdAndFavouriteList();
+    getUserIdAndUserData();
   }
 
   Widget favouriteList(){

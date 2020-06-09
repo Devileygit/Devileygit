@@ -1,5 +1,6 @@
 import 'package:deviley_production/FirstLoginDetails/age.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class NameDetails extends StatefulWidget {
   @override
@@ -32,12 +33,16 @@ class _NameDetailsState extends State<NameDetails> {
                 padding: const EdgeInsets.all(20.0),
                 child: TextFormField(
                   keyboardType: TextInputType.text,
+                  textCapitalization: TextCapitalization.sentences,
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(15),
+                  ],
                   validator: (value) {
                     if (value == null) {
                       return 'Please enter a name';
                     } else if (value.length < 3) {
                       return 'Your name is really short!';
-                    } else if(value.length>20){
+                    } else if(value.length>15){
                       return 'Your name is too long!';
                     }
                     else {

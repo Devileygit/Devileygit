@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.pink[50],
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.album),
+        child: Image(image: AssetImage('images/fav_list_icon.png'),),
         heroTag: 'favouritePage',
         onPressed: (){
           Navigator.push(context, MaterialPageRoute(builder: (context)=>Favourites()));

@@ -128,17 +128,6 @@ class _ProfilePictureDetailsState extends State<ProfilePictureDetails> {
                     padding: EdgeInsets.all(20),
                     child: FlatButton(
                       onPressed: () {
-                        print(widget.name +
-                            "....." +
-                            widget.cityName +
-                            "......" +
-                            widget.gender +
-                            "...." +
-                            widget.addictionList.toString() +
-                            "......" +
-                            widget.about +
-                            "......" +
-                            _imageFile.toString());
                         Navigator.push(
                             context,
                             MaterialPageRoute(

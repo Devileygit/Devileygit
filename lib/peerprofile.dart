@@ -28,26 +28,28 @@ class _PeerProfileState extends State<PeerProfile> {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
-          return SimpleDialog(
-            elevation: 4,
-            backgroundColor: Colors.pink[50],
-            title: Text('Gift'),
-            children: <Widget>[
-              for (var i = 0; i < gifts.length; i++)
-                SimpleDialogOption(
-                  onPressed: () {
-                    Navigator.of(context).pop(i);
-                  },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width - 10,
-                    child: ListTile(
-                      leading: Image(image: gifts[i]),
-                      title: Text('Gift $i'),
-                      subtitle: Text('Something Sexy'),
+          return Container(
+            child: SimpleDialog(
+              elevation: 4,
+              backgroundColor: Colors.pink[50],
+              title: Text('Gift'),
+              children: <Widget>[
+                for (var i = 0; i < gifts.length; i++)
+                  SimpleDialogOption(
+                    onPressed: () {
+                      Navigator.of(context).pop(i);
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width - 10,
+                      child: ListTile(
+                        leading: Image(image: gifts[i]),
+                        title: Text('Gift $i'),
+                        subtitle: Text('Something Sexy'),
+                      ),
                     ),
-                  ),
-                )
-            ],
+                  )
+              ],
+            ),
           );
         });
   }
@@ -159,7 +161,7 @@ class _PeerProfileState extends State<PeerProfile> {
             physics: BouncingScrollPhysics(),
             slivers: <Widget>[
               SliverAppBar(
-                expandedHeight: 350,
+                expandedHeight:MediaQuery.of(context).size.width ,
                 pinned: true,
                 actions: <Widget>[
                   IconButton(
@@ -174,26 +176,42 @@ class _PeerProfileState extends State<PeerProfile> {
                   title: Text(
                       widget.snapShot['name'] + ', ' + widget.snapShot['age']),
                   centerTitle: true,
-                  background: Container(
-                    alignment: Alignment.bottomCenter,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image:
-                                NetworkImage(widget.snapShot['profilePhoto']),
-                            fit: BoxFit.cover,
-                            alignment: Alignment.center)),
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        height: 100,
+                  background: Stack(
+                    children: <Widget>[
+                      Container(
+                        alignment: Alignment.bottomCenter,
                         decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              colors: [Colors.black, Colors.transparent],
-                              begin: Alignment.bottomCenter,
-                              end: Alignment.topCenter),
+                            image: DecorationImage(
+                                image:
+                                    NetworkImage(widget.snapShot['profilePhoto']),
+                                fit: BoxFit.cover,
+                                alignment: Alignment.center)),
+                        child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Container(
+                            height: 100,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                  colors: [Color.fromRGBO(0, 0, 0, 0.85), Colors.transparent],
+                                  begin: Alignment.bottomCenter,
+                                  end: Alignment.topCenter),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                      Align(
+                        alignment: Alignment.topCenter,
+                        child: Container(
+                          height: 70,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                                colors: [Color.fromRGBO(0, 0, 0, 0.85), Colors.transparent],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   collapseMode: CollapseMode.parallax,
                 ),

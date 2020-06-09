@@ -89,16 +89,7 @@ class _HomeState extends State<Home> {
       ),
       body: PageStorage(
         bucket: bucket,
-        child: PageTransitionSwitcher(
-          transitionBuilder: (child,primaryAnimation,secondaryAnimation){
-            return FadeThroughTransition(
-              animation: primaryAnimation,
-              secondaryAnimation: secondaryAnimation,
-              child: child,
-            );
-        },
-          child: _children[_currentIndex],
-        ),
+        child: _children[_currentIndex],
       )
     );
   }

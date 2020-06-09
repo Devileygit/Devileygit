@@ -5,13 +5,6 @@
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ],
-    "redirects": [
-      {
-        "source": "localhost:5000/index.html",
-        "destination": "localhost:5000/deviley.com",
-        "type":301
-      }
     ]
   }
 }
