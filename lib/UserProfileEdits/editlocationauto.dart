@@ -5,11 +5,11 @@ import 'package:geolocator/geolocator.dart';
 
 class ProfileLocationAutoEdit extends StatefulWidget {
   @override
-  _ProfileLocationAutoEditState createState() => _ProfileLocationAutoEditState();
+  _ProfileLocationAutoEditState createState() =>
+      _ProfileLocationAutoEditState();
 }
 
 class _ProfileLocationAutoEditState extends State<ProfileLocationAutoEdit> {
-
   Geolocator geolocator = Geolocator();
   List<Placemark> fetchedLocation;
   Position fetchedLatitudeLongitude;
@@ -32,10 +32,10 @@ class _ProfileLocationAutoEditState extends State<ProfileLocationAutoEdit> {
     return [placeMark, currentLocation];
   }
 
-  getUserId() async{
-    await SharedPrefs.getUserIdSharedPreference().then((value){
+  getUserId() async {
+    await SharedPrefs.getUserIdSharedPreference().then((value) {
       setState(() {
-        myUserId=value;
+        myUserId = value;
       });
     });
   }
@@ -89,15 +89,15 @@ class _ProfileLocationAutoEditState extends State<ProfileLocationAutoEdit> {
                       child: Center(
                         child: fetchedLocation == null
                             ? Text(
-                          'Fetching Location',
-                          style: TextStyle(fontSize: 16),
-                        )
+                                'Fetching Location',
+                                style: TextStyle(fontSize: 16),
+                              )
                             : Text(
-                          fetchedLocation[0].locality +
-                              ", " +
-                              fetchedLocation[0].country,
-                          style: TextStyle(fontSize: 16),
-                        ),
+                                fetchedLocation[0].locality +
+                                    ", " +
+                                    fetchedLocation[0].country,
+                                style: TextStyle(fontSize: 16),
+                              ),
                       ),
                     )),
               ),
@@ -107,18 +107,27 @@ class _ProfileLocationAutoEditState extends State<ProfileLocationAutoEdit> {
                   Padding(
                     padding: EdgeInsets.all(20),
                     child: Builder(
-                      builder:(context)=> FlatButton(
+                      builder: (context) => FlatButton(
                         onPressed: () {
-                          if(fetchedLocation!=null) {
-                            database.updateProfileLocation(myUserId, fetchedLocation[0].locality, fetchedLocation[0].country, fetchedLatitudeLongitude.latitude, fetchedLatitudeLongitude.longitude).then((v){
-                              Navigator.pop(context, MaterialPageRoute(
-                                  builder: (context) => ProfileLocationAutoEdit()));
+                          if (fetchedLocation != null) {
+                            database
+                                .updateProfileLocation(
+                                    myUserId,
+                                    fetchedLocation[0].locality,
+                                    fetchedLocation[0].country,
+                                    fetchedLatitudeLongitude.latitude,
+                                    fetchedLatitudeLongitude.longitude)
+                                .then((v) {
+                              Navigator.pop(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ProfileLocationAutoEdit()));
                             });
-
-                          }
-                          else{
+                          } else {
                             Scaffold.of(context).showSnackBar(SnackBar(
-                              content: Text('Location Couldn\'t fetched automatically.'),
+                              content: Text(
+                                  'Location Couldn\'t fetched automatically.'),
                               duration: Duration(seconds: 3),
                             ));
                           }

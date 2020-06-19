@@ -19,10 +19,10 @@ class _ProfileOrientationEditState extends State<ProfileOrientationEdit> {
   ];
   String myUserId;
 
-  getUserId() async{
-    await SharedPrefs.getUserIdSharedPreference().then((value){
+  getUserId() async {
+    await SharedPrefs.getUserIdSharedPreference().then((value) {
       setState(() {
-        myUserId=value;
+        myUserId = value;
       });
     });
   }
@@ -97,28 +97,28 @@ class _ProfileOrientationEditState extends State<ProfileOrientationEdit> {
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.all(20),
-                    child: Builder(
-                      builder: (context) {
-                        return FlatButton(
-                          onPressed: () {
-                            database.updateProfileOrientation(myUserId, orientation).then((v){
-                              Scaffold.of(context).showSnackBar(SnackBar(
-                                content: Text('Updated Attraction Successfully'),
-                                duration: Duration(seconds: 2),
-                              ));
-                            });
-                          },
-                          child: Text('Update Attracted Towards'),
-                          splashColor: Colors.transparent,
-                          color: Colors.pink[600],
-                          highlightColor: Colors.pinkAccent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
-                        );
-                      }
-                    ),
+                    child: Builder(builder: (context) {
+                      return FlatButton(
+                        onPressed: () {
+                          database
+                              .updateProfileOrientation(myUserId, orientation)
+                              .then((v) {
+                            Scaffold.of(context).showSnackBar(SnackBar(
+                              content: Text('Updated Attraction Successfully'),
+                              duration: Duration(seconds: 2),
+                            ));
+                          });
+                        },
+                        child: Text('Update Attracted Towards'),
+                        splashColor: Colors.transparent,
+                        color: Colors.pink[600],
+                        highlightColor: Colors.pinkAccent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+                        padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
+                      );
+                    }),
                   ),
                 ],
               )

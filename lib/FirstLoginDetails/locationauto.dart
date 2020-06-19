@@ -111,29 +111,37 @@ class _LocationAutoDetailsState extends State<LocationAutoDetails> {
                   Padding(
                     padding: EdgeInsets.all(20),
                     child: Builder(
-                      builder:(context)=> FlatButton(
+                      builder: (context) => FlatButton(
                         onPressed: () {
-                          if(fetchedLocation!=null) {
-                            Navigator.pop(context, MaterialPageRoute(
-                                builder: (context) => LocationAutoDetails()));
-                            Navigator.push(context, MaterialPageRoute(
-                                builder: (context) =>
-                                    AboutDetails(name: widget.name,
-                                      age: widget.age,
-                                      gender: widget.gender,
-                                      marital: widget.marital,
-                                      orientation: widget.orientation,
-                                      addictionList: widget.addictionList,
-                                      cityName: fetchedLocation[0].locality,
-                                      countryName: fetchedLocation[0].country,
-                                      cityLatitude: fetchedLatitudeLongitude
-                                          .latitude,
-                                      cityLongitude: fetchedLatitudeLongitude
-                                          .longitude,)));
-                          }
-                          else{
+                          if (fetchedLocation != null) {
+                            Navigator.pop(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        LocationAutoDetails()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AboutDetails(
+                                          name: widget.name,
+                                          age: widget.age,
+                                          gender: widget.gender,
+                                          marital: widget.marital,
+                                          orientation: widget.orientation,
+                                          addictionList: widget.addictionList,
+                                          cityName: fetchedLocation[0].locality,
+                                          countryName:
+                                              fetchedLocation[0].country,
+                                          cityLatitude:
+                                              fetchedLatitudeLongitude.latitude,
+                                          cityLongitude:
+                                              fetchedLatitudeLongitude
+                                                  .longitude,
+                                        )));
+                          } else {
                             Scaffold.of(context).showSnackBar(SnackBar(
-                              content: Text('Location Couldn\'t fetched automatically.'),
+                              content: Text(
+                                  'Location Couldn\'t fetched automatically.'),
                               duration: Duration(seconds: 3),
                             ));
                           }

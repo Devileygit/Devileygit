@@ -12,10 +12,10 @@ class _ProfileMaritalEditState extends State<ProfileMaritalEdit> {
   Database database = Database();
   String myUserId;
 
-  getUserId() async{
-    await SharedPrefs.getUserIdSharedPreference().then((value){
+  getUserId() async {
+    await SharedPrefs.getUserIdSharedPreference().then((value) {
       setState(() {
-        myUserId=value;
+        myUserId = value;
       });
     });
   }
@@ -55,7 +55,6 @@ class _ProfileMaritalEditState extends State<ProfileMaritalEdit> {
     super.initState();
     getUserId();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -100,29 +99,28 @@ class _ProfileMaritalEditState extends State<ProfileMaritalEdit> {
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.all(20),
-                    child: Builder(
-                      builder: (context) {
-                        return FlatButton(
-                          onPressed: () {
-                            database.updateProfileMarital(myUserId, marital).then((v){
-                              Scaffold.of(context).showSnackBar(SnackBar(
-                                content: Text('Relationship Status Updated'),
-                                duration: Duration(seconds: 2),
-
-                              ));
-                            });
-                          },
-                          child: Text('Update Relationship Status'),
-                          splashColor: Colors.transparent,
-                          color: Colors.pink[600],
-                          highlightColor: Colors.pinkAccent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
-                        );
-                      }
-                    ),
+                    child: Builder(builder: (context) {
+                      return FlatButton(
+                        onPressed: () {
+                          database
+                              .updateProfileMarital(myUserId, marital)
+                              .then((v) {
+                            Scaffold.of(context).showSnackBar(SnackBar(
+                              content: Text('Relationship Status Updated'),
+                              duration: Duration(seconds: 2),
+                            ));
+                          });
+                        },
+                        child: Text('Update Relationship Status'),
+                        splashColor: Colors.transparent,
+                        color: Colors.pink[600],
+                        highlightColor: Colors.pinkAccent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+                        padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
+                      );
+                    }),
                   ),
                 ],
               )

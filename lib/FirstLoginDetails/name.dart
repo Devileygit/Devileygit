@@ -42,10 +42,9 @@ class _NameDetailsState extends State<NameDetails> {
                       return 'Please enter a name';
                     } else if (value.length < 3) {
                       return 'Your name is really short!';
-                    } else if(value.length>15){
+                    } else if (value.length > 15) {
                       return 'Your name is too long!';
-                    }
-                    else {
+                    } else {
                       return null;
                     }
                   },

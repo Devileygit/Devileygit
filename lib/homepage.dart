@@ -15,20 +15,19 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   ScrollController _listController;
+
   //PageController _pageController;
   Stream _stream;
-
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _stream = Firestore.instance.collection('users').snapshots();
-    _listController = ScrollController()..addListener((){
-      setState(() {
-
+    _listController = ScrollController()
+      ..addListener(() {
+        setState(() {});
       });
-    });
   }
 
   @override
@@ -44,10 +43,13 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.pink[50],
       floatingActionButton: FloatingActionButton(
-        child: Image(image: AssetImage('images/fav_list_icon.png'),),
+        child: Image(
+          image: AssetImage('images/fav_list_icon.png'),
+        ),
         heroTag: 'favouritePage',
-        onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>Favourites()));
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Favourites()));
         },
       ),
       body: Stack(
@@ -57,58 +59,61 @@ class _HomePageState extends State<HomePage> {
             child: Container(
               height: 400,
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.deepPurple[600],Colors.deepPurple[600]]
-                )
-              ),
+                  gradient: LinearGradient(colors: [
+                Colors.deepPurple[600],
+                Colors.deepPurple[600]
+              ])),
             ),
           ),
           Center(
             child: Container(
-
               child: CustomScrollView(
                 physics: BouncingScrollPhysics(),
-              controller: _listController,
-              slivers: <Widget>[
-                SliverAppBar(
-                  title: Padding(
-                    padding: const EdgeInsets.only(left: 8),
-                    child: Text('Deviley',style: TextStyle(fontSize: 30,fontWeight: FontWeight.w900),),
-                  ),
-
-                  floating: true,
-                  backgroundColor: Colors.deepPurple[600],
-                  elevation: 0,
-                  actions: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: IconButton(
-                        color: Colors.grey[50],
-                        icon: Icon(Icons.tune),
-                        onPressed: (){},
+                controller: _listController,
+                slivers: <Widget>[
+                  SliverAppBar(
+                    title: Padding(
+                      padding: const EdgeInsets.only(left: 8),
+                      child: Text(
+                        'Deviley',
+                        style: TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.w900),
                       ),
-                    )
-                  ],
-                ),
-
-                StreamBuilder(
-
-                    stream: _stream,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return SliverList(
-                          delegate: SliverChildBuilderDelegate((context,index){
-                            return pageWidget(context, snapshot.data.documents[index], user);
-                          },
-                            childCount: snapshot.data.documents.length,
-                          ),
-                        );
-                      } else {
-                        return SliverToBoxAdapter(child: Container(),);
-                      }
-                    })
-              ],
-
+                    ),
+                    floating: true,
+                    backgroundColor: Colors.deepPurple[600],
+                    elevation: 0,
+                    actions: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: IconButton(
+                          color: Colors.grey[50],
+                          icon: Icon(Icons.tune),
+                          onPressed: () {},
+                        ),
+                      )
+                    ],
+                  ),
+                  StreamBuilder(
+                      stream: _stream,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return SliverList(
+                            delegate: SliverChildBuilderDelegate(
+                              (context, index) {
+                                return pageWidget(context,
+                                    snapshot.data.documents[index], user);
+                              },
+                              childCount: snapshot.data.documents.length,
+                            ),
+                          );
+                        } else {
+                          return SliverToBoxAdapter(
+                            child: Container(),
+                          );
+                        }
+                      })
+                ],
               ),
             ),
           ),
@@ -135,7 +140,8 @@ class _HomePageState extends State<HomePage> {
             color: Colors.transparent,
             margin: EdgeInsets.all(0),
             elevation: 5,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
             child: Stack(
               children: <Widget>[
                 Container(
@@ -143,7 +149,6 @@ class _HomePageState extends State<HomePage> {
                   decoration: BoxDecoration(
                       shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.circular(15),
-
                       image: DecorationImage(
                           image: NetworkImage(documentSnapshot['profilePhoto']),
                           fit: BoxFit.cover,
@@ -192,11 +197,11 @@ class ClipperHome extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     var path = new Path();
-    path.lineTo(0.0,  size.height -150);
-    path.quadraticBezierTo(
-        size.width / 4, 3*size.height/4-25, size.width / 2, 3*size.height/4-25 );
-    path.quadraticBezierTo(
-        3 * size.width / 4, 3*size.height/4-25, size.width, size.height -150);
+    path.lineTo(0.0, size.height - 150);
+    path.quadraticBezierTo(size.width / 4, 3 * size.height / 4 - 25,
+        size.width / 2, 3 * size.height / 4 - 25);
+    path.quadraticBezierTo(3 * size.width / 4, 3 * size.height / 4 - 25,
+        size.width, size.height - 150);
     path.lineTo(size.width, 0);
     path.close();
     return path;
@@ -205,4 +210,3 @@ class ClipperHome extends CustomClipper<Path> {
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
-

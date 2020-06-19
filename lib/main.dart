@@ -40,34 +40,16 @@ class RunApp extends StatelessWidget {
                     height: 1.4,
                     fontWeight: FontWeight.bold)),
             textTheme: TextTheme(
-                headline4: TextStyle(
-                    color: Colors.grey[800],
-                    height: 1.4
-                    ),
-                headline3: TextStyle(
-                    color: Colors.grey[800],
-                    height: 1.4
-                    ),
-                headline2: TextStyle(
-                    color: Colors.grey[800],
-                    height: 1.4
-                    ),
-                headline1: TextStyle(
-                    color: Colors.grey[800],
-                    height: 1.4
-                    ),
-                bodyText2: TextStyle(
-                    color: Colors.grey[800],
-                    height: 1.4
-                    ),
-                bodyText1: TextStyle(
-                    color: Colors.grey[800],
-                    height: 1.4
-                    ),
+                headline4: TextStyle(color: Colors.grey[800], height: 1.4),
+                headline3: TextStyle(color: Colors.grey[800], height: 1.4),
+                headline2: TextStyle(color: Colors.grey[800], height: 1.4),
+                headline1: TextStyle(color: Colors.grey[800], height: 1.4),
+                bodyText2: TextStyle(color: Colors.grey[800], height: 1.4),
+                bodyText1: TextStyle(color: Colors.grey[800], height: 1.4),
                 button: TextStyle(
-                    color: Colors.grey[800],
-                    fontSize: 17,
-                    ))),
+                  color: Colors.grey[800],
+                  fontSize: 17,
+                ))),
         home: MyApp(),
       ),
     );

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:photo_view/photo_view.dart';
 
-
 class GalleryPhotoViewWrapper extends StatefulWidget {
   GalleryPhotoViewWrapper({
     this.loadingBuilder,
@@ -87,7 +86,7 @@ class _GalleryPhotoViewWrapperState extends State<GalleryPhotoViewWrapper> {
     final GalleryItem item = widget.galleryItems[index];
     return PhotoViewGalleryPageOptions(
       imageProvider: AssetImage(item.resource),
-      initialScale: PhotoViewComputedScale.contained*(0.98),
+      initialScale: PhotoViewComputedScale.contained * (0.98),
       minScale: PhotoViewComputedScale.contained * (0.7),
       maxScale: PhotoViewComputedScale.covered * 1.1,
       heroAttributes: PhotoViewHeroAttributes(tag: item.id),

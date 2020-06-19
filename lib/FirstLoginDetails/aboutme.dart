@@ -105,19 +105,22 @@ class _AboutDetailsState extends State<AboutDetails> {
                     padding: EdgeInsets.all(20),
                     child: FlatButton(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(
-                            builder: (context) =>
-                                ProfilePictureDetails(name: widget.name,
-                                  age: widget.age,
-                                  gender: widget.gender,
-                                  marital: widget.marital,
-                                  orientation: widget.orientation,
-                                  addictionList: widget.addictionList,
-                                  cityName: widget.cityName,
-                                  countryName: widget.countryName,
-                                  cityLatitude: widget.cityLatitude,
-                                  cityLongitude: widget.cityLongitude,
-                                about: about,)));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProfilePictureDetails(
+                                      name: widget.name,
+                                      age: widget.age,
+                                      gender: widget.gender,
+                                      marital: widget.marital,
+                                      orientation: widget.orientation,
+                                      addictionList: widget.addictionList,
+                                      cityName: widget.cityName,
+                                      countryName: widget.countryName,
+                                      cityLatitude: widget.cityLatitude,
+                                      cityLongitude: widget.cityLongitude,
+                                      about: about,
+                                    )));
                       },
                       child: Text('Next'),
                       splashColor: Colors.transparent,

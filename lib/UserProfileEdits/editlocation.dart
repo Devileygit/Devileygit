@@ -48,7 +48,11 @@ class _ProfileLocationEditState extends State<ProfileLocationEdit> {
                           padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                           child: FlatButton(
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileLocationAutoEdit()));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ProfileLocationAutoEdit()));
                             },
                             child: Text('Change My Location'),
                             splashColor: Colors.transparent,
@@ -62,21 +66,36 @@ class _ProfileLocationEditState extends State<ProfileLocationEdit> {
                         ),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
-                          child: Text('Press It To Detect Location Automatically',style: TextStyle(fontStyle: FontStyle.italic),),
+                          child: Text(
+                            'Press It To Detect Location Automatically',
+                            style: TextStyle(fontStyle: FontStyle.italic),
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(20.0),
                           child: GestureDetector(
-                            child: Text('No Thanks, I will Select',style: TextStyle(color: Colors.pink[600], decoration: TextDecoration.underline,fontWeight: FontWeight.bold ),),
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileLocationManualEdit()));
+                            child: Text(
+                              'No Thanks, I will Select',
+                              style: TextStyle(
+                                  color: Colors.pink[600],
+                                  decoration: TextDecoration.underline,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ProfileLocationManualEdit()));
                             },
                           ),
                         )
                       ],
                     ),
                   )),
-              SizedBox(height: 150,)
+              SizedBox(
+                height: 150,
+              )
             ],
           ),
         ),

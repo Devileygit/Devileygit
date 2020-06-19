@@ -9,15 +9,14 @@ class ProfileAboutEdit extends StatefulWidget {
 }
 
 class _ProfileAboutEditState extends State<ProfileAboutEdit> {
-
-  String editAbout='';
+  String editAbout = '';
   Database database = Database();
   String myUserId;
 
-  getUserId() async{
-    await SharedPrefs.getUserIdSharedPreference().then((value){
+  getUserId() async {
+    await SharedPrefs.getUserIdSharedPreference().then((value) {
       setState(() {
-        myUserId=value;
+        myUserId = value;
       });
     });
   }
@@ -28,7 +27,6 @@ class _ProfileAboutEditState extends State<ProfileAboutEdit> {
     super.initState();
     getUserId();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -83,11 +81,11 @@ class _ProfileAboutEditState extends State<ProfileAboutEdit> {
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(40)),
                           borderSide:
-                          BorderSide(color: Colors.purple[600], width: 2)),
+                              BorderSide(color: Colors.purple[600], width: 2)),
                       focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(40)),
                           borderSide:
-                          BorderSide(color: Colors.pink[600], width: 2)),
+                              BorderSide(color: Colors.pink[600], width: 2)),
                       hintText: 'Edit About Me',
                     ),
                   ),
@@ -98,42 +96,38 @@ class _ProfileAboutEditState extends State<ProfileAboutEdit> {
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.all(20),
-                    child: Builder(
-                      builder: (context) {
-                        return FlatButton(
-                          onPressed: () {
-                            print(editAbout);
-                            if(editAbout.trim()=='')
-                            {
+                    child: Builder(builder: (context) {
+                      return FlatButton(
+                        onPressed: () {
+                          print(editAbout);
+                          if (editAbout.trim() == '') {
+                            FocusScope.of(context).unfocus();
+                            Scaffold.of(context).showSnackBar(SnackBar(
+                              content: Text('About Can\'t Be Empty'),
+                              duration: Duration(seconds: 2),
+                            ));
+                          } else {
+                            database
+                                .updateProfileAbout(myUserId, editAbout)
+                                .then((val) {
                               FocusScope.of(context).unfocus();
                               Scaffold.of(context).showSnackBar(SnackBar(
-                                content: Text('About Can\'t Be Empty'),
+                                content: Text('About Updated Successfully'),
                                 duration: Duration(seconds: 2),
-
                               ));
-                            }
-                            else{
-                              database.updateProfileAbout(myUserId, editAbout)
-                                  .then((val) {
-                                FocusScope.of(context).unfocus();
-                                Scaffold.of(context).showSnackBar(SnackBar(
-                                  content: Text('About Updated Successfully'),
-                                  duration: Duration(seconds: 2),
-                                ));
-                              });
-                            }
-                          },
-                          child: Text('Update About'),
-                          splashColor: Colors.transparent,
-                          color: Colors.pink[600],
-                          highlightColor: Colors.pinkAccent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
-                        );
-                      }
-                    ),
+                            });
+                          }
+                        },
+                        child: Text('Update About'),
+                        splashColor: Colors.transparent,
+                        color: Colors.pink[600],
+                        highlightColor: Colors.pinkAccent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+                        padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
+                      );
+                    }),
                   ),
                 ],
               )

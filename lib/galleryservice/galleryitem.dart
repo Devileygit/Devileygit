@@ -9,8 +9,7 @@ class GalleryItem {
 }
 
 class GalleryItemThumbnail extends StatelessWidget {
-  const GalleryItemThumbnail(
-      {Key key, this.galleryExampleItem, this.onTap})
+  const GalleryItemThumbnail({Key key, this.galleryExampleItem, this.onTap})
       : super(key: key);
 
   final GalleryItem galleryExampleItem;
@@ -20,7 +19,7 @@ class GalleryItemThumbnail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 5.0,vertical: 5.0),
+      padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
       child: GestureDetector(
         onTap: onTap,
         child: Hero(

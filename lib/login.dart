@@ -620,7 +620,6 @@ class PatternMain extends CustomPainter {
 
     canvas.drawCircle(Offset(990, 260), 30, paint1);
     canvas.drawCircle(Offset(990, 260), 20, paint3);
-
   }
 
   @override

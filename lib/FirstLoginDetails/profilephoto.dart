@@ -43,7 +43,7 @@ class _ProfilePictureDetailsState extends State<ProfilePictureDetails> {
   File _imageFile;
 
   getImage(ImageSource source) async {
-    File image = await ImagePicker.pickImage(source: source,imageQuality: 90);
+    File image = await ImagePicker.pickImage(source: source, imageQuality: 90);
     if (image != null) {
       File cropped = await ImageCropper.cropImage(
           sourcePath: image.path,
@@ -143,7 +143,7 @@ class _ProfilePictureDetailsState extends State<ProfilePictureDetails> {
                                       cityLatitude: widget.cityLatitude,
                                       cityLongitude: widget.cityLongitude,
                                       imageFile: _imageFile,
-                                  about: widget.about,
+                                      about: widget.about,
                                     )));
                       },
                       child: Text('Create My Account'),

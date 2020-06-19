@@ -26,8 +26,7 @@ class _AgeDetailsState extends State<AgeDetails> {
       final date2 = DateTime.now();
       var difference = date2.difference(picked).inDays;
       var years = (difference / 365).floor();
-      final newDate =
-          years.toString();
+      final newDate = years.toString();
       setState(() {
         age = newDate;
       });

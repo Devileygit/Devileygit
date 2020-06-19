@@ -1,6 +1,7 @@
 import 'package:deviley_production/ChatService/chatpage.dart';
 import 'package:deviley_production/galleryservice/gallery.dart';
 import 'package:deviley_production/services/databse.dart';
+import 'package:deviley_production/services/notificationhomeservices.dart';
 import 'package:deviley_production/services/sharedprefs.dart';
 import 'package:flutter/material.dart';
 import 'package:deviley_production/galleryservice/galleryitem.dart';
@@ -9,7 +10,7 @@ import 'package:flutter/scheduler.dart';
 class PeerProfile extends StatefulWidget {
   final snapShot;
 
-  const PeerProfile({Key key, this.snapShot}) : super(key: key);
+  const PeerProfile({Key key, @required this.snapShot}) : super(key: key);
 
   @override
   _PeerProfileState createState() => _PeerProfileState();
@@ -23,6 +24,7 @@ class _PeerProfileState extends State<PeerProfile> {
   ScrollController _scrollController = new ScrollController();
   ScrollController _scrollController2 = new ScrollController();
   List<AssetImage> gifts = [];
+  NotificationFillService notificationFillService = NotificationFillService();
 
   Future<int> showGift() async {
     return showDialog(
@@ -73,14 +75,13 @@ class _PeerProfileState extends State<PeerProfile> {
         MaterialPageRoute(
             builder: (context) => ChatPage(
                   chatRoomId: chatRoomId,
-              snapShot: widget.snapShot,
+                  snapShot: widget.snapShot,
                 )));
   }
 
-  addFavourite(){
+  addFavourite() async {
     database.addFavourite(myUserId, widget.snapShot['id']);
   }
-
 
   @override
   void initState() {
@@ -134,13 +135,28 @@ class _PeerProfileState extends State<PeerProfile> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            FloatingActionButton(
-              child: Icon(Icons.favorite),
-              mini: true,
-              //backgroundColor: Colors.pinkAccent,
-              heroTag: 0,
-              onPressed: addFavourite,
-            ),
+            Builder(builder: (context) {
+              return FloatingActionButton(
+                child: Icon(Icons.favorite),
+                mini: true,
+                //backgroundColor: Colors.pinkAccent,
+                heroTag: 0,
+                onPressed: () {
+                  print(myUserId);
+                  addFavourite().then((v) {
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                      content: Text('Added to Favourite'),
+                      duration: Duration(seconds: 2),
+                    ));
+                  });
+
+                  notificationFillService.addFavouriteNotificationDataFunction(
+                      myUserId,
+                      widget.snapShot['id'],
+                      0); // here 0 means Favourite notification
+                },
+              );
+            }),
             SizedBox(
               height: 10,
             ),
@@ -161,7 +177,7 @@ class _PeerProfileState extends State<PeerProfile> {
             physics: BouncingScrollPhysics(),
             slivers: <Widget>[
               SliverAppBar(
-                expandedHeight:MediaQuery.of(context).size.width ,
+                expandedHeight: MediaQuery.of(context).size.width,
                 pinned: true,
                 actions: <Widget>[
                   IconButton(
@@ -182,8 +198,8 @@ class _PeerProfileState extends State<PeerProfile> {
                         alignment: Alignment.bottomCenter,
                         decoration: BoxDecoration(
                             image: DecorationImage(
-                                image:
-                                    NetworkImage(widget.snapShot['profilePhoto']),
+                                image: NetworkImage(
+                                    widget.snapShot['profilePhoto']),
                                 fit: BoxFit.cover,
                                 alignment: Alignment.center)),
                         child: Align(
@@ -192,7 +208,10 @@ class _PeerProfileState extends State<PeerProfile> {
                             height: 100,
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
-                                  colors: [Color.fromRGBO(0, 0, 0, 0.85), Colors.transparent],
+                                  colors: [
+                                    Color.fromRGBO(0, 0, 0, 0.85),
+                                    Colors.transparent
+                                  ],
                                   begin: Alignment.bottomCenter,
                                   end: Alignment.topCenter),
                             ),
@@ -205,7 +224,10 @@ class _PeerProfileState extends State<PeerProfile> {
                           height: 70,
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
-                                colors: [Color.fromRGBO(0, 0, 0, 0.85), Colors.transparent],
+                                colors: [
+                                  Color.fromRGBO(0, 0, 0, 0.85),
+                                  Colors.transparent
+                                ],
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter),
                           ),
@@ -455,17 +477,30 @@ class _PeerProfileState extends State<PeerProfile> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: <Widget>[
                                     ShaderMask(
-                                      shaderCallback: (rect)=>
-                                      LinearGradient(
-                                        colors: [Colors.deepPurple[600],Colors.pink[600]],
-                                        begin: Alignment.topLeft,
-                                        end: Alignment.bottomRight
-                                      ).createShader(rect),
-                                        child: Text('Send Gifts',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.white),)
-                                    ),
+                                        shaderCallback: (rect) =>
+                                            LinearGradient(
+                                                    colors: [
+                                                  Colors.deepPurple[600],
+                                                  Colors.pink[600]
+                                                ],
+                                                    begin: Alignment.topLeft,
+                                                    end: Alignment.bottomRight)
+                                                .createShader(rect),
+                                        child: Text(
+                                          'Send Gifts',
+                                          style: TextStyle(
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
+                                        )),
                                     Container(
-                                      width: 200,
-                                        child: Text('Send Gifts To Start Conversation And Get Closer To Know Each Other',style: TextStyle(fontSize: 13,fontStyle: FontStyle.italic),)),
+                                        width: 200,
+                                        child: Text(
+                                          'Send Gifts To Start Conversation And Get Closer To Know Each Other',
+                                          style: TextStyle(
+                                              fontSize: 13,
+                                              fontStyle: FontStyle.italic),
+                                        )),
                                   ],
                                 )
                               ],
@@ -473,10 +508,17 @@ class _PeerProfileState extends State<PeerProfile> {
                             onTap: () {
                               showGift().then((v) {
                                 print('we got ' + v.toString());
-                                Scaffold.of(context).showSnackBar(SnackBar(
-                                  content: Text('Gift $v sent to $name'),
-                                  duration: Duration(seconds: 2),
-                                ));
+                                if (v != null) {
+                                  int giftIndex = v.toInt();
+                                  print(giftIndex);
+                                  notificationFillService
+                                      .addGiftNotificationDataFunction(myUserId,
+                                          widget.snapShot['id'], 1, giftIndex);
+                                  Scaffold.of(context).showSnackBar(SnackBar(
+                                    content: Text('Gift $v sent to $name'),
+                                    duration: Duration(seconds: 2),
+                                  ));
+                                }
                               });
                             },
                           ),

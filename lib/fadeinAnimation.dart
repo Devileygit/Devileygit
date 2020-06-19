@@ -3,6 +3,7 @@ import 'package:simple_animations/simple_animations.dart';
 import 'package:supercharged/supercharged.dart';
 
 enum _AniProps { opacity, translateY }
+
 class FadeIn extends StatelessWidget {
   final double delay;
   final Widget child;
@@ -23,7 +24,7 @@ class FadeIn extends StatelessWidget {
       builder: (context, child, value) => Opacity(
         opacity: value.get(_AniProps.opacity),
         child: Transform.translate(
-          offset: Offset(0,value.get(_AniProps.translateY)),
+          offset: Offset(0, value.get(_AniProps.translateY)),
           child: child,
         ),
       ),

@@ -13,6 +13,7 @@ import 'main.dart';
 
 class Profile extends StatefulWidget {
   Profile({Key key}) : super(key: key);
+
   @override
   _ProfileState createState() => _ProfileState();
 }
@@ -24,52 +25,60 @@ class _ProfileState extends State<Profile> {
   String myUid;
   var userDoc;
 
-
   getUserIdAndUserData() async {
     await SharedPrefs.getUserIdSharedPreference().then((value) {
       setState(() {
-        myUid=value;
-        database.getPersonalData(myUid).then((val){
+        myUid = value;
+        database.getPersonalData(myUid).then((val) {
           setState(() {
-            myDetails=val;
+            myDetails = val;
           });
         });
       });
     });
   }
 
-  Widget profileAvatar(){
+  Widget profileAvatar() {
     return StreamBuilder(
-      stream: myDetails,
-      builder: (context,snapshot){
-        if(snapshot.hasData){
-          userDoc=snapshot.data.data;
-          return Container(
-            child: Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  CircleAvatar(
-                    backgroundImage: NetworkImage(userDoc['profilePhoto']),
-                    backgroundColor: Colors.grey[500],
-                    radius: 100,
-                  ),
-                  SizedBox(height: 10,),
-                  Text(userDoc['name']+', '+userDoc['age'],style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
-                  SizedBox(height: 10,),
-                  Text(userDoc['cityName'],style: TextStyle(fontSize: 20,color: Colors.grey[600]),),
-                ],
+        stream: myDetails,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            userDoc = snapshot.data.data;
+            return Container(
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    CircleAvatar(
+                      backgroundImage: NetworkImage(userDoc['profilePhoto']),
+                      backgroundColor: Colors.grey[500],
+                      radius: 100,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      userDoc['name'] + ', ' + userDoc['age'],
+                      style:
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      userDoc['cityName'],
+                      style: TextStyle(fontSize: 20, color: Colors.grey[600]),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          );
-        }
-        else{
-          return Container();
-        }
-      }
-    );
+            );
+          } else {
+            return Container();
+          }
+        });
   }
 
   @override
@@ -97,13 +106,16 @@ class _ProfileState extends State<Profile> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(40),
             ),
-            onPressed: (){},
-            child: Text('Poisa Patir button eta',style: TextStyle(color: Colors.grey[100]),),
+            onPressed: () {},
+            child: Text(
+              'Poisa Patir button eta',
+              style: TextStyle(color: Colors.grey[100]),
+            ),
           ),
-
           InkWell(
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileEdit()));
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ProfileEdit()));
             },
             child: Card(
               margin: EdgeInsets.all(0),
@@ -120,24 +132,28 @@ class _ProfileState extends State<Profile> {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(left: 10),
-                      child: Text('Edit My Profile',style: TextStyle(fontWeight: FontWeight.bold),),
+                      child: Text(
+                        'Edit My Profile',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 10),
-                      child: Icon(Icons.arrow_forward,color: Colors.grey[800],),
+                      child: Icon(
+                        Icons.arrow_forward,
+                        color: Colors.grey[800],
+                      ),
                     ),
-
                   ],
                 ),
               ),
             ),
           ),
-
           Card(
             margin: EdgeInsets.all(0),
             elevation: 4,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(0)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
             child: Container(
               height: 70,
               color: Colors.pink[50],
@@ -148,29 +164,27 @@ class _ProfileState extends State<Profile> {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.only(left: 10),
-                    child: Text('Account Settings',style: TextStyle(fontWeight: FontWeight.bold),),
+                    child: Text(
+                      'Account Settings',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(right: 10),
-                    child: Icon(Icons.arrow_forward,color: Colors.grey[800],),
+                    child: Icon(
+                      Icons.arrow_forward,
+                      color: Colors.grey[800],
+                    ),
                   ),
-
                 ],
               ),
             ),
           )
-
         ],
       ),
     );
   }
 }
-
-
-
-
-
-
 
 //Column(
 //children: <Widget>[

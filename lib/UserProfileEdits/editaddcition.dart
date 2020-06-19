@@ -8,15 +8,14 @@ class ProfileAddictionEdit extends StatefulWidget {
 }
 
 class _ProfileAddictionEditState extends State<ProfileAddictionEdit> {
-
   List<String> addictionList;
   Database database = Database();
   String myUserId;
 
-  getUserId() async{
-    await SharedPrefs.getUserIdSharedPreference().then((value){
+  getUserId() async {
+    await SharedPrefs.getUserIdSharedPreference().then((value) {
       setState(() {
-        myUserId=value;
+        myUserId = value;
       });
     });
   }
@@ -36,7 +35,7 @@ class _ProfileAddictionEditState extends State<ProfileAddictionEdit> {
       }
     });
     if (addictionList.length == 0) {
-      addictionList=["No Addiction!!"];
+      addictionList = ["No Addiction!!"];
     }
   }
 
@@ -101,29 +100,29 @@ class _ProfileAddictionEditState extends State<ProfileAddictionEdit> {
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.all(20),
-                    child: Builder(
-                      builder: (context) {
-                        return FlatButton(
-                          onPressed: () {
-                            getItems();
-                            database.updateProfileAddiction(myUserId, addictionList).then((v){
-                              Scaffold.of(context).showSnackBar(SnackBar(
-                                content: Text('Addictions Updated Successfully'),
-                                duration: Duration(seconds: 2),
-                              ));
-                            });
-                          },
-                          child: Text('Update Addictions'),
-                          splashColor: Colors.transparent,
-                          color: Colors.pink[600],
-                          highlightColor: Colors.pinkAccent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
-                        );
-                      }
-                    ),
+                    child: Builder(builder: (context) {
+                      return FlatButton(
+                        onPressed: () {
+                          getItems();
+                          database
+                              .updateProfileAddiction(myUserId, addictionList)
+                              .then((v) {
+                            Scaffold.of(context).showSnackBar(SnackBar(
+                              content: Text('Addictions Updated Successfully'),
+                              duration: Duration(seconds: 2),
+                            ));
+                          });
+                        },
+                        child: Text('Update Addictions'),
+                        splashColor: Colors.transparent,
+                        color: Colors.pink[600],
+                        highlightColor: Colors.pinkAccent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+                        padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
+                      );
+                    }),
                   ),
                 ],
               )

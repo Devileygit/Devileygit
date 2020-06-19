@@ -39,7 +39,7 @@ class _AddictionDetailsState extends State<AddictionDetails> {
       }
     });
     if (addictionList.length == 0) {
-      addictionList=["No Addiction!!"];
+      addictionList = ["No Addiction!!"];
     }
   }
 

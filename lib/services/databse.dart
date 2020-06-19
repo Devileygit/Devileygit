@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Database {
-  Future addChat(String chatRoomId, chatData) async{
+  Future addChat(String chatRoomId, chatData) async {
     Firestore.instance
         .collection('chatRoom')
         .document(chatRoomId)
@@ -12,7 +12,7 @@ class Database {
     });
   }
 
-  Future addChatRoom(chatRoom, chatRoomId) async{
+  Future addChatRoom(chatRoom, chatRoomId) async {
     Firestore.instance
         .collection('chatRoom')
         .document(chatRoomId)
@@ -38,39 +38,43 @@ class Database {
         .snapshots();
   }
 
-  Future addFavourite(String myUid, String peerUid ) async{
-    Firestore.instance
-        .collection('users')
-        .document(myUid)
-        .updateData({
-      'favouriteList':FieldValue.arrayUnion([peerUid])
+  Future addFavourite(String myUid, String peerUid) async {
+    return Firestore.instance.collection('users').document(myUid).updateData({
+      'favouriteList': FieldValue.arrayUnion([peerUid])
+    }).catchError((onError) {
+      print(onError);
     });
   }
-  
-  getPersonalData(String myUid) async{
+
+  getPersonalData(String myUid) async {
+    return Firestore.instance.collection('users').document(myUid).snapshots();
+  }
+
+  getPersonalDataDocuments(String myUid) {
     return Firestore.instance
         .collection('users')
-        .document(myUid)
+        .where('id', isEqualTo: myUid)
+        .limit(1)
         .snapshots();
   }
 
-  updateProfileName(String myUid, String changedName) async{
-    Firestore.instance.collection('users').document(myUid).updateData({
-      'name':changedName
-    });
-  }
-
-  updateProfileAbout(String myUid, String changedAbout) async{
-    Firestore.instance.collection('users').document(myUid).updateData({
-      'about':changedAbout
-    });
-  }
-
-  updateProfileLocation(String myUid, String cityName, String countryName, double cityLatitude, double cityLongitude) async{
+  updateProfileName(String myUid, String changedName) async {
     Firestore.instance
         .collection('users')
         .document(myUid)
-        .updateData({
+        .updateData({'name': changedName});
+  }
+
+  updateProfileAbout(String myUid, String changedAbout) async {
+    Firestore.instance
+        .collection('users')
+        .document(myUid)
+        .updateData({'about': changedAbout});
+  }
+
+  updateProfileLocation(String myUid, String cityName, String countryName,
+      double cityLatitude, double cityLongitude) async {
+    Firestore.instance.collection('users').document(myUid).updateData({
       'cityName': cityName,
       'countryName': countryName,
       'cityLatitude': cityLatitude,
@@ -78,31 +82,57 @@ class Database {
     });
   }
 
-  updateProfileMarital(String myUid,String marital) async{
+  updateProfileMarital(String myUid, String marital) async {
     Firestore.instance
         .collection('users')
         .document(myUid)
-        .updateData({
-      'marital':marital
-    });
+        .updateData({'marital': marital});
   }
 
-  updateProfileAddiction(String myUid, List<String> addictionList) async{
+  updateProfileAddiction(String myUid, List<String> addictionList) async {
     Firestore.instance
         .collection('users')
         .document(myUid)
-        .updateData({
-      'addictionList':addictionList
-    });
+        .updateData({'addictionList': addictionList});
   }
 
-  updateProfileOrientation(String myUid, String orientation) async{
+  updateProfileOrientation(String myUid, String orientation) async {
     Firestore.instance
         .collection('users')
         .document(myUid)
-        .updateData({
-      'orientation':orientation
+        .updateData({'orientation': orientation});
+  }
+
+  Future addNotificationData(String userId, data) async {
+    Firestore.instance
+        .collection('users')
+        .document(userId)
+        .collection('notificationData')
+        .add(data)
+        .catchError((e) {
+      print('addNotification Data error.....    ' + e);
     });
   }
 
+  Future checkDuplicateNotification(
+      String userId, String peerId, int type) async {
+    return Firestore.instance
+        .collection('users')
+        .document(userId)
+        .collection('notificationData')
+        .where('peerId', isEqualTo: peerId)
+        .where('type', isEqualTo: type)
+        .limit(1)
+        .getDocuments();
+  }
+
+  getNotificationsData(String userId) async {
+    return Firestore.instance
+        .collection('users')
+        .document(userId)
+        .collection('notificationData')
+        .orderBy('time', descending: true)
+        .limit(1000)
+        .snapshots();
+  }
 }

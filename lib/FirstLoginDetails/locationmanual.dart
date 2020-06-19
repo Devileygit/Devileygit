@@ -11,13 +11,14 @@ class LocationManualDetails extends StatefulWidget {
   final String orientation;
   final List<String> addictionList;
 
-  const LocationManualDetails({Key key,
-    this.name,
-    this.age,
-    this.gender,
-    this.marital,
-    this.orientation,
-    this.addictionList})
+  const LocationManualDetails(
+      {Key key,
+      this.name,
+      this.age,
+      this.gender,
+      this.marital,
+      this.orientation,
+      this.addictionList})
       : super(key: key);
 
   @override
@@ -82,7 +83,7 @@ class _LocationManualDetailsState extends State<LocationManualDetails> {
       cityName = _selected.city;
       cityLatitude = _selected.latitude;
       cityLongitude = _selected.longitude;
-      cityCountry=_selected.city+ ", " + countryName;
+      cityCountry = _selected.city + ", " + countryName;
     });
   }
 
@@ -144,53 +145,53 @@ class _LocationManualDetailsState extends State<LocationManualDetails> {
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: cityName == null
                         ? (custom.CustomDropdownButtonHideUnderline(
-                      child: _selectedCountry == null
-                          ? custom.CustomDropdownButton(
-                        hint: Text("Select Location"),
-                        key: dropdownKey2,
-                        value: _selectedCountry,
-                        items: _dropdownMenuItemsCountry,
-                        onChanged: onChangedDropdownItemCountry,
-                      )
-                          : custom.CustomDropdownButton(
-                        hint: Text("Select Location"),
-                        key: dropdownKey,
-                        value: _selectedCities,
-                        items: _dropdownMenuItemsCity,
-                        onChanged: onChangedDropdownItemCity,
-                      ),
-                    ))
+                            child: _selectedCountry == null
+                                ? custom.CustomDropdownButton(
+                                    hint: Text("Select Location"),
+                                    key: dropdownKey2,
+                                    value: _selectedCountry,
+                                    items: _dropdownMenuItemsCountry,
+                                    onChanged: onChangedDropdownItemCountry,
+                                  )
+                                : custom.CustomDropdownButton(
+                                    hint: Text("Select Location"),
+                                    key: dropdownKey,
+                                    value: _selectedCities,
+                                    items: _dropdownMenuItemsCity,
+                                    onChanged: onChangedDropdownItemCity,
+                                  ),
+                          ))
                         : InkWell(
-                      onTap: () {
-                        setState(() {
-                          cityName = null;
-                          _selectedCountry = null;
-                          _selectedCities = null;
-                          simulateClick2();
-                          print('tapped');
-                        });
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        mainAxisSize: MainAxisSize.max,
-                        children: <Widget>[
-                          Center(
-                            child: Text(
-                              cityCountry,
-                              style: TextStyle(fontSize: 16),
+                            onTap: () {
+                              setState(() {
+                                cityName = null;
+                                _selectedCountry = null;
+                                _selectedCities = null;
+                                simulateClick2();
+                                print('tapped');
+                              });
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              mainAxisSize: MainAxisSize.max,
+                              children: <Widget>[
+                                Center(
+                                  child: Text(
+                                    cityCountry,
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Icon(
+                                    Icons.arrow_drop_down,
+                                    color: Colors.grey[700],
+                                  ),
+                                )
+                              ],
                             ),
                           ),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Icon(
-                              Icons.arrow_drop_down,
-                              color: Colors.grey[700],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
                   ),
                 ),
               ),
@@ -200,25 +201,30 @@ class _LocationManualDetailsState extends State<LocationManualDetails> {
                   Padding(
                     padding: EdgeInsets.all(20),
                     child: Builder(
-                      builder:(context)=> FlatButton(
+                      builder: (context) => FlatButton(
                         onPressed: () {
-                          if(cityName!=null) {
-                            Navigator.pop(context, MaterialPageRoute(
-                                builder: (context) => LocationManualDetails()));
-                            Navigator.push(context, MaterialPageRoute(
-                                builder: (context) =>
-                                    AboutDetails(name: widget.name,
-                                      age: widget.age,
-                                      gender: widget.gender,
-                                      marital: widget.marital,
-                                      orientation: widget.orientation,
-                                      addictionList: widget.addictionList,
-                                      cityName: cityName,
-                                      countryName: countryName,
-                                      cityLatitude: cityLatitude,
-                                      cityLongitude: cityLongitude,)));
-                          }
-                          else{
+                          if (cityName != null) {
+                            Navigator.pop(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        LocationManualDetails()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AboutDetails(
+                                          name: widget.name,
+                                          age: widget.age,
+                                          gender: widget.gender,
+                                          marital: widget.marital,
+                                          orientation: widget.orientation,
+                                          addictionList: widget.addictionList,
+                                          cityName: cityName,
+                                          countryName: countryName,
+                                          cityLatitude: cityLatitude,
+                                          cityLongitude: cityLongitude,
+                                        )));
+                          } else {
                             Scaffold.of(context).showSnackBar(SnackBar(
                               content: Text('Select a location.'),
                               backgroundColor: Colors.purple[600],
