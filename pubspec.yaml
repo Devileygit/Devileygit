@@ -40,6 +40,8 @@ dependencies:
   shared_preferences: '>=0.5.7+2 <2.0.0'
   animations: ^1.0.0+5
   supercharged: ^1.6.0
+  firebase_messaging: ^6.0.16
+  firebase_database: ^3.1.6
 
 dev_dependencies:
   flutter_test:
@@ -85,7 +87,12 @@ flutter:
    - gift/8.png
    - gift/9.png
    - gift/10.png
+   - gift/5.gif
+   - gift/0.gif
+   - gift/1.gif
    - gift/icons/gift_icon.png
+   - gift/icons/spot_light_1.png
+   - gift/icons/spot_light_2.png
    - gift/icons/gift_icon_2.png
 
   # An image asset can refer to one or more resolution-specific "variants", see

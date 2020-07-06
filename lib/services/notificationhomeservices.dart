@@ -10,6 +10,7 @@ class NotificationFillService {
 
   addFavouriteNotificationDataFunction(String peerId, String userId, int type) {
     Map<String, dynamic> favouriteNotificationData = {
+      'userId':userId,
       'peerId': peerId,
       'type': type,
       'time': DateTime.now().millisecondsSinceEpoch
@@ -26,6 +27,7 @@ class NotificationFillService {
   addGiftNotificationDataFunction(
       String peerId, String userId, int type, int giftIndex) {
     Map<String, dynamic> giftNotificationData = {
+      'userId':userId,
       'peerId': peerId,
       'type': type,
       'giftIndex': giftIndex,

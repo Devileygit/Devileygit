@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:deviley_production/home.dart';
 import 'package:deviley_production/login.dart';
 import 'package:deviley_production/redirect.dart';
 import 'package:deviley_production/services/auth.dart';
+import 'package:deviley_production/services/databse.dart';
 import 'package:deviley_production/services/sharedprefs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -70,6 +74,8 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     getUserLoggedInState();
   }
+
+
 
   getUserLoggedInState() async {
     await SharedPrefs.getUserLoggedInSharedPreference().then((value) {

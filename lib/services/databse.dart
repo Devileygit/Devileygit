@@ -135,4 +135,11 @@ class Database {
         .limit(1000)
         .snapshots();
   }
+
+  addDeviceToken(String userId,String deviceToken) async{
+    Firestore.instance
+        .collection('users')
+        .document(userId)
+        .updateData({'token':deviceToken});
+  }
 }

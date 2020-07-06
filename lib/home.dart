@@ -4,6 +4,9 @@ import 'package:deviley_production/ChatService/chat.dart';
 import 'package:deviley_production/notifications.dart';
 import 'package:deviley_production/homepage.dart';
 import 'package:deviley_production/profile.dart';
+import 'package:deviley_production/services/databse.dart';
+import 'package:deviley_production/services/sharedprefs.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -19,6 +22,10 @@ class _HomeState extends State<Home> {
   Key keyPageView3 = PageStorageKey('notificationsviewstore');
   Key keyPageView4 = PageStorageKey('profileviewstore');
   int _currentIndex = 0;
+  final FirebaseMessaging _fcm = FirebaseMessaging();
+  String userId;
+  String token;
+  Database database = Database();
 
   List _children;
   final PageStorageBucket bucket = PageStorageBucket();
@@ -41,12 +48,33 @@ class _HomeState extends State<Home> {
         key: keyPageView4,
       )
     ];
+
+    getUserId().then((v){
+      registerDeviceToken();
+    });
+
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
+  }
+
+  getUserId() async {
+    await SharedPrefs.getUserIdSharedPreference().then((value){
+      setState(() {
+        userId = value;
+      });
+    });
+  }
+
+  registerDeviceToken(){
+    _fcm.getToken().then((value){
+      token=value;
+      database.addDeviceToken(userId, token);
+    });
+
   }
 
   @override

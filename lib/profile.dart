@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:deviley_production/AccountSettings/accounthome.dart';
 import 'package:deviley_production/home.dart';
 import 'package:deviley_production/UserProfileEdits/profileedit.dart';
 import 'package:deviley_production/services/auth.dart';
@@ -112,7 +113,8 @@ class _ProfileState extends State<Profile> {
               style: TextStyle(color: Colors.grey[100]),
             ),
           ),
-          InkWell(
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
             onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => ProfileEdit()));
@@ -149,34 +151,40 @@ class _ProfileState extends State<Profile> {
               ),
             ),
           ),
-          Card(
-            margin: EdgeInsets.all(0),
-            elevation: 4,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-            child: Container(
-              height: 70,
-              color: Colors.pink[50],
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Text(
-                      'Account Settings',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> AccountHome()));
+            },
+            child: Card(
+              margin: EdgeInsets.all(0),
+              elevation: 4,
+              shape:
+                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+              child: Container(
+                height: 70,
+                color: Colors.pink[50],
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Text(
+                        'Account Settings',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: Icon(
-                      Icons.arrow_forward,
-                      color: Colors.grey[800],
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Icon(
+                        Icons.arrow_forward,
+                        color: Colors.grey[800],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           )
